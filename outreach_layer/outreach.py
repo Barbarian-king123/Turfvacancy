@@ -1,6 +1,13 @@
 
+import sys
 from typing import Dict, Any, Optional
 import pandas as pd
+
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 
 def _parse_hour(time_str: str) -> int:
@@ -125,41 +132,23 @@ def generate_outreach(
     time_slot = slot.get("time_slot", "")
     lead_time = slot.get("lead_time_hrs", 0)
 
-    # Sport emojis
-    sport_emojis = {
-        "football": "⚽",
-        "box cricket": "🏏",
-        "cricket": "🏏",
-        "badminton": "🏸",
-        "tennis": "🎾",
-        "basketball": "🏀"
-    }
-    emoji = sport_emojis.get(sport.lower(), "🏆")
-
-    # Format message based on decision type
+    # Format message based on decision type without emojis
     if decision == "notify_large_discount":
-        urgency_hook = f"🔥 **FLASH FLASH DEAL — {int(discount_pct)}% OFF TODAY!**"
-        price_line = f"💰 **Price:** ~₹{int(base_price)}~ ➡️ **₹{discounted_price}** (Save ₹{savings}!)"
-        cta = f"⚡ *Only 1 slot left for this afternoon! Tap below to book before it's gone.*"
+        urgency_hook = f"FLASH PROMO — {int(discount_pct)}% OFF TONIGHT"
+        price_line = f"Rate: ${discounted_price}/hr (Regular ${int(base_price)}/hr - Save ${savings})"
+        cta = "Only 1 prime slot open for this window. Lock it in with your team before it fills."
     elif decision == "notify_small_discount":
-        urgency_hook = f"⚡ **Exclusive Member Discount — {int(discount_pct)}% OFF**"
-        price_line = f"💰 **Price:** ~₹{int(base_price)}~ ➡️ **₹{discounted_price}** (Save ₹{savings})"
-        cta = f"📲 *Grab this slot now and get your squad together!*"
+        urgency_hook = f"Special Slot Alert — {int(discount_pct)}% Off"
+        price_line = f"Rate: ${discounted_price}/hr (Regular ${int(base_price)}/hr)"
+        cta = "Exclusive priority access for registered club captains."
     else:  # notify_only
-        urgency_hook = f"📢 **Turf Slot Alert: Now Available**"
-        price_line = f"💰 **Rate:** ₹{int(base_price)}"
-        cta = f"👉 *Reserve your slot early to secure the pitch.*"
+        urgency_hook = "Slot Vacancy Notice"
+        price_line = f"Rate: ${int(base_price)}/hr"
+        cta = "Tap below to reserve before open general booking."
 
     message = (
-        f"{urgency_hook}\n\n"
-        f"Hey **{segment_name}** {emoji}\n\n"
-        f"A prime {sport} slot just opened up at **{turf_name}**!\n\n"
-        f"📅 **Date:** {day}, {date}\n"
-        f"⏰ **Time:** {time_slot} (Starting in {lead_time} hrs)\n"
-        f"{price_line}\n\n"
-        f"{cta}\n\n"
-        f"🔗 [Click Here to Instant-Book]\n"
-        f"*(Targeting: {segment_name} • {segment_size} members notified)*"
+        f'Hey {segment_name}! A prime {time_slot} slot just opened on {turf_name} ({sport}) tonight. '
+        f'{urgency_hook}. {price_line}. {cta} turfpulse.ai/book/{slot.get("slot_id", "slot").lower()}'
     )
 
     return {
