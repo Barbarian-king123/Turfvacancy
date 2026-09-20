@@ -1,8 +1,6 @@
 # TurfPulse AI ⚽🏏🎾
 ### Autonomous Revenue Management & Vacancy Dispatch System
 
-[![Live Demo](https://img.shields.io/badge/Live%20Deployment-Active%20(FastAPI)-00C853?style=for-the-badge&logo=google-chrome&logoColor=white)](https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Barbarian-king123/Turfvacancy)
 
 > 🟢 **LIVE DEPLOYMENT LINK**: **[https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com](https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com)**  
 > 🔗 **REST API Telemetry**: [https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com/api/health](https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com/api/health)
