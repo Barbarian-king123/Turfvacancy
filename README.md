@@ -2,9 +2,6 @@
 ### Autonomous Revenue Management & Vacancy Dispatch System
 
 
-> 🟢 **LIVE DEPLOYMENT LINK**: **[https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com](https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com)**  
-> 🔗 **REST API Telemetry**: [https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com/api/health](https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com/api/health)
-
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI%200.110-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
 [![Groq](https://img.shields.io/badge/AI%20Engine-Groq%20LPU%20(Llama--3.3--70B)-F55036.svg)](https://groq.com)
