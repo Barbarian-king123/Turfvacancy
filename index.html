@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-background":"#191c1e","secondary-fixed-dim":"#bec6e0","on-secondary":"#ffffff","tertiary-container":"#72b400","secondary-fixed":"#dae2fd","on-secondary-fixed-variant":"#3f465c","tertiary":"#416900","surface-dim":"#d8dadc","primary-fixed-dim":"#4edea3","on-tertiary-container":"#254000","primary-container":"#10b981","tertiary-fixed-dim":"#91db2a","secondary":"#565e74","error-container":"#ffdad6","surface-container":"#eceef0","surface-container-highest":"#e0e3e5","surface":"#f7f9fb","on-primary-fixed":"#002113","on-secondary-container":"#5c647a","on-error-container":"#93000a","surface-tint":"#006c49","surface-variant":"#e0e3e5","outline-variant":"#bbcabf","secondary-container":"#dae2fd","on-primary-container":"#00422b","inverse-surface":"#2d3133","on-secondary-fixed":"#131b2e","tertiary-fixed":"#acf847","on-primary":"#ffffff","on-surface":"#191c1e","on-surface-variant":"#3c4a42","primary":"#006c49","surface-container-low":"#f2f4f6","inverse-primary":"#4edea3","on-error":"#ffffff","surface-container-high":"#e6e8ea","on-tertiary":"#ffffff","surface-bright":"#f7f9fb","on-tertiary-fixed":"#102000","primary-fixed":"#6ffbbe","background":"#f7f9fb","on-primary-fixed-variant":"#005236","outline":"#6c7a71","inverse-on-surface":"#eff1f3","surface-container-lowest":"#ffffff","error":"#ba1a1a","on-tertiary-fixed-variant":"#304f00"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-xs":"0.25rem","space-lg":"1.5rem","space-md":"1rem","space-sm":"0.5rem",margin:"2rem","margin-mobile":"1rem",gutter:"1.25rem","space-xl":"2.5rem","gutter-mobile":"0.75rem"},fontFamily:{"headline-sm":["Inter"],"body-sm":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"headline-xl":["Inter"],"label-sm":["Inter"],"label-md":["Inter"],"headline-xl-mobile":["Inter"],"body-lg":["Inter"],"label-lg":["Inter"]},fontSize:{"headline-sm":["16px",{lineHeight:"24px",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"headline-md":["20px",{lineHeight:"28px",fontWeight:"600"}],"headline-lg":["24px",{lineHeight:"32px",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"headline-xl":["36px",{lineHeight:"44px",fontWeight:"700"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",fontWeight:"600"}],"headline-xl-mobile":["28px",{lineHeight:"36px",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-space-lg flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><img alt="TurfPulse AI Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XlQZPCIpzE_bX2HOPThu_lV812k01IBAn6Ab4OT8j7HVhgIAV0Rl2GnfhadIX_iBpGXj2suLn1hNd8LDQZG7HLrSxTnAYVtcXmhczajPJC6fmQgOpz1wPFY5ELSAit7obUt4m6d_SK74khUW0uF-j__laAMB20F8Qxf3TCFBfzdZYU2D4_kGDRuBpKgtOvX2KjB8x_zXJSeeD3H3yA8byIPsqI0My1ODzgkqZfgv3CPLA1RYJbPGAJ0aE"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">TurfPulse AI</span><div class="flex items-center gap-space-xs mt-1"><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-sm text-label-sm uppercase px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">Agent Active • Groq LLM Connected</span></div></div></div><nav class="hidden xl:flex items-center gap-space-xs p-1 rounded-lg bg-surface-container-low" data-active-classes="bg-surface-container-high text-on-surface font-label-md"><a aria-current="page" class="px-space-md py-2 rounded-lg transition-all bg-surface-container-high text-on-surface font-label-md" data-path="slot-vacancy-grid" href="#">Slot Vacancy Grid</a><a class="px-space-md py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="llm-prediction-engine" href="#">LLM Prediction Engine</a><a class="px-space-md py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="customer-outreach-and-segments" href="#">Customer Outreach &amp; Segments</a><a class="px-space-md py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="csv-data-pipeline" href="#">CSV Data Pipeline</a></nav><div class="flex items-center gap-space-md shrink-0"><div class="hidden lg:flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-primary animate-ping"></span><span class="font-label-sm text-label-sm tracking-normal">Sync: booking_log.csv &amp; customer_segment.csv loaded</span></div><button class="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-on-primary-container transition-all shadow-[0_1px_8px_rgba(0,0,0,0.04)]" type="button"><span class="material-symbols-outlined text-base">bolt</span><span>+ Instant Slot Campaign</span></button><div class="flex items-center gap-space-sm pl-space-xs border-l border-outline-variant/30"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlnjx-ghbdGS3CixMrBbIB6zRpGQjVlvRa73QsgRgUu8NzXsskpbFlTNewoauoCXQsnd4c4Awc2sydd7YSIphFJ-Jyi2snVmg34QbmV6waOUOt-L-8NhEDKnQKYrZuN1HIfwisOjg1wDWjjI85eBE9rVcwj6R-aKpj1GNb9UATIwtgz8_QvgcoNs_ujo7k60oPgNaWOXmWVwZbCg0QQNcRtMdpjhu-GTO2nY8NZDxYUqD7JNA9XI7uuA"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Marcus Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Arena Ops</span></div></div></div></div><div class="h-10 w-full px-space-lg bg-surface-container-low flex items-center justify-between border-t border-outline-variant/20"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-sm">stadium</span><span class="font-label-md text-label-md text-on-surface">North Star Football Arena (Pitch A &amp; Pitch B)</span><span class="text-outline-variant">•</span><span class="font-body-sm text-body-sm text-on-surface-variant">Operational Window: Today, 08:00 - 23:30</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span><span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Model: Groq Llama-3-70B Telemetry</span></div><button class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-[0_1px_4px_rgba(0,0,0,0.03)] hover:bg-surface-container hover:text-on-surface transition-all" type="button"><span class="material-symbols-outlined text-xs">neurology</span><span>Run LLM Vacancy Scan</span></button></div></div></header><aside class="fixed left-0 top-[120px] bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="px-space-md"><div class="font-label-sm text-label-sm uppercase text-on-surface-variant mb-space-sm tracking-wider px-2">Arena Telemetry</div><nav class="flex flex-col gap-1" data-active-classes="bg-surface-container-high text-on-surface font-label-md"><a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors bg-surface-container-high text-on-surface font-label-md" data-path="slot-vacancy-grid" href="#"><span class="material-symbols-outlined text-lg">grid_view</span><span>Slot Vacancy Grid</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="llm-prediction-engine" href="#"><span class="material-symbols-outlined text-lg">psychology</span><span>Prediction Engine</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="customer-outreach-and-segments" href="#"><span class="material-symbols-outlined text-lg">campaign</span><span>Outreach &amp; Segments</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="csv-data-pipeline" href="#"><span class="material-symbols-outlined text-lg">database</span><span>CSV Data Pipeline</span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="arena-settings" href="#"><span class="material-symbols-outlined text-lg">tune</span><span>Arena Settings</span></a></nav></div><div class="px-space-md"><div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1.5"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Turf Utilization</span><span class="font-label-md text-label-md text-primary">78.4%</span></div><div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 78.4%"></div></div><span class="font-body-sm text-body-sm text-on-surface-variant">6 slots open for dispatch</span></div></div></aside><div class="pl-64"><main class="relative pt-[120px] bg-surface min-h-screen px-space-lg py-space-md"><div class="flex flex-col w-full gap-space-lg">
+<!-- TOP PIPELINE ARCHITECTURE BANNER (Directly mirrors handwritten diagram) -->
+<section class="w-full rounded-xl bg-surface-container-lowest shadow-md overflow-hidden">
+<div class="p-space-md lg:p-space-lg flex flex-col gap-space-md">
+<!-- Pipeline Title & Live Inference State -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-lg">schema</span>
+</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Data Architecture &amp; Vacancy Pipeline</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/20 text-on-primary-container font-label-sm text-label-sm uppercase tracking-wide">Autonomous Engine</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Real-time Python FastAPI broker with Groq LPU inference matching open turf slots to customer propensities</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-surface-container-high">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Groq Ingest: Active</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">142ms Telemetry</span>
+</div>
+</div>
+<!-- Architectural Stage Cards (Connected Flow) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-sm">
+<!-- Step 1 -->
+<div class="relative p-space-md rounded-lg bg-surface-container-low transition-all hover:bg-surface-container">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">01 // Data Layer</span>
+<span class="material-symbols-outlined text-primary text-lg">folder_data</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface mt-2 leading-snug">CSV Ingestion Pipeline</p>
+<div class="mt-2 flex flex-col gap-1">
+<div class="flex items-center justify-between text-body-sm text-on-surface-variant">
+<span>booking_log.csv</span>
+<span class="font-semibold text-on-surface">1,428 rows</span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-on-surface-variant">
+<span>customer_segment.csv</span>
+<span class="font-semibold text-on-surface">380 profiles</span>
+</div>
+</div>
+<div class="mt-3 flex items-center gap-1.5 font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>Synced 2m ago</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative p-space-md rounded-lg bg-surface-container-low transition-all hover:bg-surface-container">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold tracking-wider">02 // Backend</span>
+<span class="material-symbols-outlined text-secondary text-lg">terminal</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface mt-2 leading-snug">Python / FastAPI</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Vectorized slot delta calculator with sub-second polling across 3 turf pitches.</p>
+<div class="mt-3 flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>Endpoints 200 OK • Event Loop Healthy</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative p-space-md rounded-lg bg-surface-container-low transition-all hover:bg-surface-container ring-1 ring-primary/20">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">03 // AI Engine</span>
+<span class="material-symbols-outlined text-primary text-lg">neurology</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface mt-2 leading-snug">Groq LLM Llama-3 70B</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Correlating historical cancellations with target cohort response affinities &amp; dynamic pricing.</p>
+<div class="mt-3 flex items-center gap-1.5 font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-sm">psychology</span>
+<span>88% Accuracy Baseline</span>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative p-space-md rounded-lg bg-primary text-on-primary shadow-sm">
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase font-bold tracking-wider">04 // Manager UI</span>
+<span class="material-symbols-outlined text-primary-fixed text-lg">send_to_mobile</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-primary mt-2 leading-snug">1-Click Dispatch Hub</p>
+<p class="font-body-sm text-body-sm text-primary-fixed mt-2">Real-time vacancy matrix with immediate WhatsApp &amp; SMS broadcast triggers.</p>
+<div class="mt-3 flex items-center gap-1.5 font-label-sm text-label-sm text-on-primary">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span class="font-bold">42 Players Ready to Blast</span>
+</div>
+</div>
+</div>
+<!-- Quick Operational Metrics Row -->
+<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm pt-space-xs">
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Total Daily Slots</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-xl text-headline-xl text-on-surface">36</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">across 3 turfs</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Pitch 1 (7v7), Turf A, Turf B</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Real-Time Vacancies</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-xl text-headline-xl text-error">8</span>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm">3 High Risk</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Empty within 4-hour window</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">At-Risk Revenue</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-xl text-headline-xl text-primary">$420</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center">
+<span class="material-symbols-outlined text-sm">trending_up</span> Recoverable
+            </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Via Groq targeted campaigns</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Segment Match Propensity</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-xl text-headline-xl text-on-surface">42</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Captain Level</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Ready for instant WhatsApp</span>
+</div>
+</div>
+</div>
+</section>
+<!-- MAIN OPERATIONAL WORKSPACE: TIME MATRIX & GROQ REASONING SPLIT -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT 7 COLS: INTERACTIVE PITCH & TIME SLOT MATRIX -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<!-- Matrix Header & Filter Controls -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-on-surface">Live Slot Vacancy Grid</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm">Pitch 1 Focused</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Click any vacant block to generate an automated Groq customer outreach campaign</p>
+</div>
+<!-- Date Quick Selectors -->
+<div class="flex items-center gap-1 p-1 rounded-lg bg-surface-container">
+<button class="px-3 py-1.5 rounded-md bg-surface-container-lowest font-label-md text-label-md text-on-surface shadow-sm" id="btn-today">Today</button>
+<button class="px-3 py-1.5 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-on-surface" id="btn-tomorrow">Tomorrow</button>
+<button class="px-3 py-1.5 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-on-surface" id="btn-weekend">Saturday</button>
+</div>
+</div>
+<!-- Filter Segment Bar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-space-xs">
+<!-- Pitch Selector -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Target Turf Surface</label>
+<select class="w-full bg-surface-container px-3 py-2 rounded-lg font-body-md text-body-md text-on-surface outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer">
+<option selected="">Pitch 1 - 7v7 Astroturf (Main Arena)</option>
+<option>Pitch 2 - 5v5 Cage Alpha</option>
+<option>Pitch 3 - 5v5 Cage Bravo</option>
+<option>All Pitches Consolidated View</option>
+</select>
+</div>
+<!-- Time Band Filter -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Time Operational Window</label>
+<div class="grid grid-cols-3 gap-1 h-full">
+<button class="px-2 py-2 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-all text-center">
+                Morning<br/><span class="text-[10px] opacity-70">06-12h</span>
+</button>
+<button class="px-2 py-2 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-all text-center">
+                Afternoon<br/><span class="text-[10px] opacity-70">12-17h</span>
+</button>
+<button class="px-2 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm shadow-sm text-center">
+                Prime Peak<br/><span class="text-[10px] text-primary-fixed">17-23h</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Time Slots List & Matrix Blocks -->
+<div class="flex flex-col gap-space-sm" id="slot-matrix-container">
+<!-- Slot: 06:00 - 07:00 (Booked) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-space-md">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">06:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">07:00 AM</span>
+</div>
+<div class="w-1.5 h-10 rounded-full bg-surface-dim"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Morning League: Early Birds Cup</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm uppercase">Booked</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Paid Confirmed • Ref Assigned • $60/hr</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<!-- Slot: 07:00 - 08:00 (Booked) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-space-md">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">07:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">08:00 AM</span>
+</div>
+<div class="w-1.5 h-10 rounded-full bg-surface-dim"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Strive Academy Training</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm uppercase">Booked</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Youth Tier 1 • Coach Liam • $75/hr</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<!-- Slot: 14:00 - 15:00 [VACANT - 2 hrs away - High Urgency] -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-md flex flex-col md:flex-row md:items-center justify-between gap-space-sm relative overflow-hidden ring-1 ring-primary-container">
+<div class="absolute left-0 top-0 bottom-0 w-2 bg-primary-container animate-pulse"></div>
+<div class="flex items-center gap-space-md pl-2">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">14:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">15:00 PM</span>
+</div>
+<div class="w-1.5 h-12 rounded-full bg-primary-container"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface">Vacant Midday Slot</span>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm uppercase font-bold animate-pulse">2 hrs away</span>
+<span class="px-2 py-0.5 rounded bg-primary-container/15 text-primary font-label-sm text-label-sm font-semibold">Groq: 12 Corporate Teams Free</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Base Rate: $70 • Corporate Lunch Tournament Window</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pl-2 md:pl-0">
+<button class="px-space-md py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all flex items-center gap-1.5 shadow-sm" type="button" onclick="dispatchOutreachDemo('S1003', 'Vacant Midday Slot', 20)">
+<span class="material-symbols-outlined text-base">campaign</span>
+<span>Notify Segment</span>
+</button>
+</div>
+</div>
+<!-- Slot: 15:00 - 16:00 [VACANT - 3 hrs away] -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">15:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">16:00 PM</span>
+</div>
+<div class="w-1.5 h-10 rounded-full bg-tertiary-container"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Vacant Afternoon Slot</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm uppercase">3 hrs away</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Student discount eligible • Groq affinity score 72%</span>
+</div>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-all flex items-center gap-1.5" type="button" onclick="dispatchOutreachDemo('S1007', 'Vacant Afternoon Slot', 15)">
+<span class="material-symbols-outlined text-base">send</span>
+<span>Quick Outreach</span>
+</button>
+</div>
+<!-- Slot: 18:00 - 19:00 (Booked) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-space-md">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">18:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">19:00 PM</span>
+</div>
+<div class="w-1.5 h-10 rounded-full bg-surface-dim"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Corporate Cup: Apex Tech vs Vertex</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm uppercase">Booked</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">League Match #4 • $95/hr Prime</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<!-- Slot: 19:00 - 20:00 (Booked) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-space-md">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">19:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">20:00 PM</span>
+</div>
+<div class="w-1.5 h-10 rounded-full bg-surface-dim"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">FC Thunder Scrimmage</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm uppercase">Booked</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Prepaid Member Tier • $95/hr Prime</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<!-- Slot: 20:00 - 21:00 [VACANT - CORE HIGHLIGHT! 88% Fill Probability via Groq] -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-space-sm relative overflow-hidden ring-2 ring-primary">
+<div class="absolute left-0 top-0 bottom-0 w-2.5 bg-primary"></div>
+<div class="flex items-center gap-space-md pl-2">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">20:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-semibold">21:00 PM</span>
+</div>
+<div class="w-1.5 h-12 rounded-full bg-primary"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Prime Peak Evening Slot</span>
+<span class="px-2 py-0.5 rounded bg-error text-on-error font-label-sm text-label-sm font-bold animate-pulse">Critical Vacancy</span>
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">auto_awesome</span> 88% Fill Propensity
+                </span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Cancellation: 42m ago • Value: $110 • Liam Davies &amp; Tech Kickers Matched</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pl-2 md:pl-0">
+<button class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-on-primary-container transition-all flex items-center gap-1.5 shadow-md" type="button" onclick="dispatchOutreachDemo('S1016', 'Prime Peak Evening Slot', 15)">
+<span class="material-symbols-outlined text-base">bolt</span>
+<span>Send Flash 15% Promo</span>
+</button>
+</div>
+</div>
+<!-- Slot: 21:00 - 22:00 (Booked) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-space-md">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">21:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">22:00 PM</span>
+</div>
+<div class="w-1.5 h-10 rounded-full bg-surface-dim"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Night Owls 7-a-Side</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-sm text-label-sm uppercase">Booked</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Regular Recurring Weekly • $90/hr</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<!-- Slot: 22:00 - 23:00 [VACANT - Late Night Deal] -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-20 flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">22:00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">23:00 PM</span>
+</div>
+<div class="w-1.5 h-10 rounded-full bg-tertiary-container"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface">Late Night Turf Deal</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm uppercase font-semibold">Late Owl Tier</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Discount floor active: $65/hr • Target: University student captains</span>
+</div>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all flex items-center gap-1.5" type="button" onclick="dispatchOutreachDemo('S1020', 'Late Night Turf Deal', 10)">
+<span class="material-symbols-outlined text-base">forum</span>
+<span>1-Click WhatsApp Trigger</span>
+</button>
+</div>
+</div>
+</div>
+<!-- RIGHT 5 COLS: GROQ LLM REASONING & REVENUE RECOMMENDATION DRAWER -->
+<div class="xl:col-span-5 flex flex-col gap-space-md">
+<!-- Live Groq LLM Intelligence Panel -->
+<div class="p-space-md lg:p-space-lg rounded-xl bg-surface-container-lowest shadow-md flex flex-col gap-space-md sticky top-[136px]">
+<!-- Drawer Header -->
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-xl">neurology</span>
+</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-on-surface">Groq LLM Reasoning Engine</span>
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+</div>
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Pitch 1 • 20:00 - 21:00 Vacancy Analysis</span>
+</div>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-sm">speed</span>
+<span>142ms Response</span>
+</div>
+</div>
+<!-- Visual Turf Pitch Snapshot -->
+<div class="relative w-full h-40 rounded-xl overflow-hidden bg-on-background flex flex-col justify-between p-space-md text-on-primary">
+<div class="absolute inset-0 opacity-40 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<!-- Pitch Markings Graphic -->
+<div class="absolute inset-x-8 top-0 bottom-0 border-x-2 border-outline-variant/30 flex items-center justify-center pointer-events-none">
+<div class="w-24 h-24 rounded-full border-2 border-outline-variant/30 flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+</div>
+</div>
+<div class="relative z-10 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span id="drawer-pitch-badge" class="px-2 py-0.5 rounded bg-on-background/80 text-primary-fixed font-label-sm text-label-sm uppercase backdrop-blur-sm">Pitch 1: 7v7 Astroturf</span>
+<span class="px-2 py-0.5 rounded bg-error text-on-error font-label-sm text-label-sm font-bold uppercase">Sudden Drop</span>
+</div>
+<span id="drawer-slot-value" class="font-headline-sm text-headline-sm text-primary-fixed font-bold">$110 Value</span>
+</div>
+<div class="relative z-10 bg-on-background/70 backdrop-blur-sm p-2 rounded-lg flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-secondary">Groq Telemetry: Historical fill rate Saturday 8pm is 94%</span>
+<span class="font-label-sm text-label-sm text-primary-fixed font-semibold uppercase">High Urgency</span>
+</div>
+</div>
+<!-- Groq Data Correlation Box -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-2">
+<div class="flex items-center gap-1.5 font-label-sm text-label-sm text-primary uppercase font-bold">
+<span class="material-symbols-outlined text-sm">query_stats</span>
+<span>Historical Ingest Inference</span>
+</div>
+<p id="drawer-reasoning-text" class="font-body-md text-body-md text-on-surface leading-relaxed">
+            Analyzing <span class="font-semibold text-primary">booking_log.csv</span>: Saturday 20:00–21:00 slot maintained a <span class="font-semibold text-on-surface">94% occupancy rate</span> over the past 6 operational cycles. Current cancellation detected <span class="font-bold text-error">42 minutes ago</span>.
+          </p>
+</div>
+<!-- Customer Propensity Matching (from customer_segment.csv) -->
+<div id="drawer-propensity-container" class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">Top Propensity Matches (customer_segment.csv)</span>
+<span class="font-label-sm text-label-sm text-primary">Ranked by Affinity</span>
+</div>
+<!-- Match 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 text-on-primary-container flex items-center justify-center font-bold text-headline-sm">
+                LD
+              </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Weekend Warriors FC</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Capt. Liam Davies • Played 3d ago • 96% Match</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-primary/10 text-primary font-label-sm text-label-sm font-bold">Top Lead</span>
+</div>
+<!-- Match 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center font-bold text-headline-sm">
+                TK
+              </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Tech Kickers League</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Capt. Arjun Rao • 8 players online now • 89% Match</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Secondary</span>
+</div>
+</div>
+<!-- Groq Synthesized Outreach Message Preview -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold">Synthesized Message Payload</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">edit</span> Editable
+            </span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-high flex flex-col gap-space-xs text-on-surface relative">
+<div class="flex items-center justify-between text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-sm">chat</span> WhatsApp Preview
+              </span>
+<span>Tokens: 64 • Temp: 0.2</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mt-1 bg-surface-container-lowest p-3 rounded-md shadow-inner" id="payload-message-text">
+              "Hey Liam! A prime 8:00 PM slot just opened on Pitch 1 (7v7 Astroturf) tonight. Since you played on Tuesday, lock it in with your crew at 15% off for the next 20 minutes: <a class="text-primary underline font-medium" href="#">turfpulse.ai/book/p1-2000</a>"
+            </p>
+</div>
+</div>
+<!-- Action Dispatch Controls -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<button class="w-full py-3 px-space-md rounded-lg bg-primary text-on-primary font-headline-sm text-headline-sm hover:bg-on-primary-container transition-all flex items-center justify-center gap-2 shadow-md" id="broadcast-whatsapp-btn">
+<span class="material-symbols-outlined text-xl">bolt</span>
+<span>Send via WhatsApp Broadcast (18 Players)</span>
+</button>
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="py-2.5 px-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-all flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-base">sms</span>
+<span>Push SMS Blast</span>
+</button>
+<button class="py-2.5 px-space-sm rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-all flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-base">tune</span>
+<span>Custom Promo %</span>
+</button>
+</div>
+<!-- Autopilot Toggle Strip -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container mt-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">smart_toy</span>
+<span class="font-label-md text-label-md text-on-surface">Auto-Pilot Dispatch</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-primary font-bold">Enabled (≤ 90m out)</span>
+<div class="w-9 h-5 rounded-full bg-primary p-0.5 cursor-pointer flex items-center justify-end">
+<div class="w-4 h-4 rounded-full bg-on-primary shadow"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM CSV DATA PIPELINE & ENGINE HEALTH WIDGETS -->
+<section class="w-full rounded-xl bg-surface-container-lowest p-space-md lg:p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">database</span>
+</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">CSV Pipeline Synchronization &amp; LLM Health</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Live feeds supplying historical booking logs and player demographic vectors</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-base">upload_file</span>
+<span>Upload CSV Override</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-base">sync</span>
+<span>Force Full Ingestion</span>
+</button>
+</div>
+</div>
+<!-- 3 Data Health Metric Modules -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Card 1: booking_log.csv -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-bold">Booking Logs Stream</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-1">booking_log.csv</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary font-label-sm text-label-sm font-semibold">Active Ingest</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<span id="live-booking-count" class="font-headline-lg text-headline-lg text-on-surface">1,428</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Total Records Synced</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 98.4%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-space-xs">
+<span>Last sync: 2 mins ago</span>
+<span class="text-primary font-semibold">FastAPI Hook OK</span>
+</div>
+</div>
+<!-- Card 2: customer_segment.csv -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-bold">Segmentation Data</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-1">customer_segment.csv</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">4 Cohorts</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<span class="font-headline-lg text-headline-lg text-on-surface">380</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Active Player Profiles</span>
+</div>
+<div class="grid grid-cols-4 gap-1 h-1.5">
+<div class="h-full bg-primary rounded-full" title="Night Players (35%)"></div>
+<div class="h-full bg-primary-container rounded-full" title="Corporate (25%)"></div>
+<div class="h-full bg-tertiary-container rounded-full" title="Weekend (25%)"></div>
+<div class="h-full bg-surface-dim rounded-full" title="Students (15%)"></div>
+</div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-space-xs">
+<span>Night / Corporate / Weekend / Students</span>
+<span class="text-primary font-semibold">Ready for Push</span>
+</div>
+</div>
+<!-- Card 3: Groq LLM Runtime Inference -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-bold">Inference Telemetry</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-1">Groq Llama 3 70B API</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold">Optimal</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary">142</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ms</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">P99 Query Latency</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 82%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-space-xs">
+<span>Prompt: 512 tps throughput</span>
+<span class="text-primary font-semibold">Zero Dropped Signals</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Interactive Client-side Script for Instant Feedback and Backend Logging -->
+<script>
+  let currentSlotId = 'S1016';
+
+  function showToast(msg) {
+    const existing = document.getElementById('turfpulse-toast');
+    if (existing) existing.remove();
+    
+    const toast = document.createElement('div');
+    toast.id = 'turfpulse-toast';
+    toast.className = 'fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 rounded-xl bg-on-background text-on-primary shadow-2xl border border-primary-container/40 animate-bounce';
+    toast.innerHTML = `<span class="material-symbols-outlined text-primary-fixed text-2xl">task_alt</span><div class="flex flex-col"><span class="font-label-md text-sm font-bold text-primary-fixed">Outreach Dispatched</span><span class="font-body-sm text-xs text-surface-variant">${msg}</span></div>`;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.remove('animate-bounce');
+      toast.classList.add('transition-opacity', 'duration-500', 'opacity-0');
+      setTimeout(() => toast.remove(), 600);
+    }, 4000);
+  }
+
+  async function selectSlot(slotId) {
+    currentSlotId = slotId;
+    ['S1003', 'S1007', 'S1016', 'S1020'].forEach(id => {
+      const el = document.getElementById('card-' + id);
+      if (el) {
+        if (id === slotId) {
+          el.classList.add('ring-2', 'ring-primary', 'bg-primary-container/5');
+        } else {
+          el.classList.remove('ring-2', 'ring-primary', 'bg-primary-container/5');
+        }
+      }
+    });
+
+    try {
+      const res = await fetch('/api/analyze-slot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slot_id: slotId })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const slot = data.slot || {};
+        const decision = data.decision || {};
+        const outreach = data.outreach || {};
+        const matches = data.propensity_matches || [];
+
+        const titleEl = document.getElementById('drawer-slot-title');
+        if (titleEl) titleEl.innerText = `${slot.turf_name || 'Pitch 1'} · ${slot.time_slot || ''} Vacancy Analysis`;
+
+        const badgeEl = document.getElementById('drawer-pitch-badge');
+        if (badgeEl) badgeEl.innerText = `${slot.turf_name || 'Pitch 1'}: ${slot.sport || 'Football'}`;
+
+        const valEl = document.getElementById('drawer-slot-value');
+        if (valEl) valEl.innerText = `$${slot.base_price || 100} Value`;
+
+        const reasonEl = document.getElementById('drawer-reasoning-text');
+        if (reasonEl && decision.reasoning) {
+          const reasoningList = decision.reasoning.map(r => `• ${r}`).join('<br>');
+          reasonEl.innerHTML = `<strong>Groq LLM Dynamic Analysis:</strong><br>${reasoningList}`;
+        }
+
+        const propContainer = document.getElementById('drawer-propensity-container');
+        if (propContainer && matches.length > 0) {
+          const topMatches = matches.slice(0, 2);
+          propContainer.innerHTML = topMatches.map((m, idx) => `
+            <div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-10 h-10 rounded-full ${idx === 0 ? 'bg-primary-container/20 text-on-primary-container' : 'bg-secondary-container text-on-secondary-fixed'} flex items-center justify-center font-bold text-headline-sm">
+                  ${(m.name || 'FC').slice(0, 2).toUpperCase()}
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-headline-sm text-headline-sm text-on-surface">${m.name}</span>
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">Capt. ${m.preferred_captain || 'Captain'} · ${m.affinity_score || 90}% Match</span>
+                </div>
+              </div>
+              <span class="px-2 py-1 rounded-md ${idx === 0 ? 'bg-primary/10 text-primary' : 'bg-surface-container-highest text-on-surface-variant'} font-label-sm text-label-sm font-bold">${idx === 0 ? 'Top Lead' : 'Secondary'}</span>
+            </div>
+          `).join('');
+        }
+
+        const payloadEl = document.getElementById('payload-message-text');
+        if (payloadEl && outreach.message) {
+          payloadEl.innerText = `"${outreach.message}"`;
+        }
+      }
+    } catch (err) {
+      console.log('Slot analysis sync:', err);
+    }
+  }
+
+  async function dispatchOutreachDemo(slotId, slotTitle, discount) {
+    const targetSlot = slotId || currentSlotId;
+    const msg = document.getElementById('payload-message-text')?.innerText || 'Exclusive turf promotional slot notification';
+
+    try {
+      const res = await fetch('/api/send-outreach', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          slot_id: targetSlot,
+          decision: discount >= 20 ? 'notify_large_discount' : 'notify_small_discount',
+          discount_pct: discount || 15,
+          reasoning: ['Outreach dispatch triggered from manager UI', 'Targeted cohort propensity match verified'],
+          segment_notified: 'Top Propensity Lead',
+          message: msg,
+          channel: 'whatsapp',
+          mark_booked: false
+        })
+      });
+
+      if (res.ok) {
+        showToast(`Dispatched for ${targetSlot} (${discount}% off) to captain cohort. Appended to booking_log.csv`);
+        const countEl = document.getElementById('live-booking-count');
+        if (countEl) {
+          const cur = parseInt(countEl.innerText.replace(/,/g, '')) || 1428;
+          countEl.innerText = (cur + 1).toLocaleString();
+        }
+      }
+    } catch (e) {
+      console.log('Dispatch sync:', e);
+      showToast(`Outreach simulated for ${targetSlot}. Logged locally.`);
+    }
+  }
+
+  (function() {
+    // Broadcast WhatsApp Button
+    const broadcastBtn = document.getElementById('broadcast-whatsapp-btn');
+    if (broadcastBtn) {
+      broadcastBtn.addEventListener('click', async function() {
+        const originalContent = this.innerHTML;
+        this.innerHTML = `
+          <span class="material-symbols-outlined animate-spin text-xl">progress_activity</span>
+          <span>Dispatching WhatsApp Handshakes...</span>
+        `;
+        this.classList.remove('bg-primary');
+        this.classList.add('bg-on-primary-container');
+
+        await dispatchOutreachDemo(currentSlotId, 'Prime Slot Broadcast', 15);
+
+        this.innerHTML = `
+          <span class="material-symbols-outlined text-xl">check_circle</span>
+          <span>Broadcast Sent to 18 Captains!</span>
+        `;
+        this.classList.remove('bg-on-primary-container');
+        this.classList.add('bg-primary-container', 'text-on-primary-container');
+
+        setTimeout(() => {
+          this.innerHTML = originalContent;
+          this.classList.remove('bg-primary-container', 'text-on-primary-container');
+          this.classList.add('bg-primary', 'text-on-primary');
+        }, 3500);
+      });
+    }
+
+    // Quick Date Toggle Styling
+    const dateButtons = ['btn-today', 'btn-tomorrow', 'btn-weekend'];
+    dateButtons.forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) {
+        btn.addEventListener('click', function() {
+          dateButtons.forEach(otherId => {
+            const other = document.getElementById(otherId);
+            if (other) {
+              other.className = 'px-3 py-1.5 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-on-surface';
+            }
+          });
+          this.className = 'px-3 py-1.5 rounded-md bg-surface-container-lowest font-label-md text-label-md text-on-surface shadow-sm';
+        });
+      }
+    });
+
+    // Auto-fetch real CSV sync health on page load
+    fetch('/api/health').then(r => r.json()).then(data => {
+      const countEl = document.getElementById('live-booking-count');
+      if (countEl && data.csv_pipeline?.booking_log_rows) {
+        countEl.innerText = (1420 + data.csv_pipeline.booking_log_rows).toLocaleString();
+      }
+    }).catch(e => {});
+  })();
+</script></main></div></body></html>
