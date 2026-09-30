@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TurfPulse AI — Arena Vacancy Dispatch</title>
+  <title>TurfPulse AI — Arena Revenue & Vacancy Dispatch</title>
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,403 +43,410 @@
       color: #e5e7eb;
       -webkit-font-smoothing: antialiased;
     }
-    /* Hide scrollbars for clean app appearance */
-    ::-webkit-scrollbar {
-      display: none;
-    }
-    * {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    .active-tab {
+    .active-nav-tab {
       background-color: #1a271f !important;
       color: #2ae9a1 !important;
+      border-color: #2ae9a1/40 !important;
       font-weight: 600;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-start p-0 sm:p-4 selection:bg-brand-mint selection:text-brand-dark">
+<body class="min-h-screen flex flex-col bg-brand-dark selection:bg-brand-mint selection:text-brand-dark">
 
-  <!-- Desktop Presentation Controls Bar -->
-  <header class="w-full max-w-md mx-auto mb-2 px-4 py-2 flex items-center justify-between text-xs text-zinc-400">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-brand-mint animate-pulse"></span>
-      <span class="font-semibold text-zinc-300">TurfPulse AI</span>
-      <span class="text-zinc-600">•</span>
-      <span id="backend-status-badge" class="px-1.5 py-0.5 rounded bg-brand-card text-brand-mint border border-brand-border">Node + Express</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="toggleViewMode()" id="view-toggle-btn" class="px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 transition">
-        📱 View: Phone
-      </button>
+  <!-- ======================================================== -->
+  <!-- MODERN WEBSITE NAVBAR (NO PHONE MOCKUP / NO DEBUG BADGES) -->
+  <!-- ======================================================== -->
+  <header class="w-full bg-brand-bg/90 backdrop-blur-md border-b border-brand-border sticky top-0 z-30">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('dispatch')">
+        <div class="w-9 h-9 rounded-xl bg-brand-card border border-brand-border flex items-center justify-center text-lg shadow-sm">
+          ⚽
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-white tracking-tight text-base sm:text-lg">TurfPulse AI</span>
+            <span class="w-2 h-2 rounded-full bg-brand-mint animate-pulse"></span>
+          </div>
+          <span class="text-[11px] text-zinc-400 font-medium">Apex Arena Operations</span>
+        </div>
+      </div>
+
+      <!-- Website Navigation Tabs -->
+      <nav class="flex items-center gap-1 sm:gap-2 bg-brand-card/80 p-1 rounded-xl border border-brand-border">
+        <button id="nav-dispatch" onclick="switchTab('dispatch')" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition active-nav-tab">
+          Dispatch
+        </button>
+        <button id="nav-analytics" onclick="switchTab('analytics')" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition">
+          Analytics
+        </button>
+        <button id="nav-vacancies" onclick="switchTab('vacancies')" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition">
+          Vacancies
+        </button>
+        <button id="nav-log" onclick="switchTab('log')" class="nav-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition">
+          Audit Log
+        </button>
+      </nav>
+
+      <!-- Right Status / Live Indicator -->
+      <div class="hidden md:flex items-center gap-2.5 text-xs text-zinc-400">
+        <span class="px-2.5 py-1 rounded-full bg-brand-card border border-brand-border text-zinc-300 font-medium flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-mint"></span>
+          Pitch A & B Active
+        </span>
+      </div>
+
     </div>
   </header>
 
-  <!-- Mobile App Frame Container -->
-  <main id="app-container" class="w-full max-w-md bg-brand-bg border border-brand-border/60 rounded-none sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col relative min-h-[780px] sm:min-h-[820px] transition-all duration-300">
+  <!-- ======================================================== -->
+  <!-- MAIN WEBSITE CONTENT CONTAINER                           -->
+  <!-- ======================================================== -->
+  <main class="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col justify-start">
 
-    <!-- Scrollable Screen Content -->
-    <div id="screen-content" class="flex-1 overflow-y-auto pb-24 px-5 pt-6">
+    <!-- ======================================================== -->
+    <!-- TAB 1: DISPATCH SCREEN (EXACT SCREENSHOT 1 MATCH)        -->
+    <!-- ======================================================== -->
+    <section id="screen-dispatch" class="flex flex-col gap-5 max-w-2xl mx-auto w-full animate-fadeIn">
+      
+      <!-- Top Action Bar -->
+      <div class="flex items-center justify-between">
+        <button onclick="switchTab('vacancies')" class="flex items-center gap-1.5 text-zinc-400 hover:text-white text-sm font-medium transition">
+          <span>←</span>
+          <span>Slots</span>
+        </button>
+        <span id="dispatch-slot-id" class="text-base sm:text-lg font-bold text-white tracking-wide">Slot S1016</span>
+        <span id="dispatch-status-badge" class="px-3 py-1 rounded text-xs font-bold bg-brand-redBadge text-brand-redText tracking-wider">
+          VACANT
+        </span>
+      </div>
 
-      <!-- ======================================================== -->
-      <!-- TAB 1: VACANCIES SCREEN                                   -->
-      <!-- ======================================================== -->
-      <section id="screen-vacancies" class="hidden flex flex-col gap-4 animate-fadeIn">
-        <div class="flex items-center justify-between">
-          <div>
-            <h1 class="text-2xl font-bold text-white tracking-tight">Vacancies</h1>
-            <p class="text-xs text-zinc-400 mt-0.5">Apex Arena • Unsold At-Risk Slots</p>
+      <!-- Slot Details Heading -->
+      <div class="flex flex-col gap-1.5">
+        <span id="dispatch-turf-subtitle" class="text-xs font-semibold tracking-wider uppercase text-zinc-400">
+          FOOTBALL • APEX ARENA (PITCH A)
+        </span>
+        <h1 id="dispatch-time-heading" class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Tonight, 20:00 – 21:00
+        </h1>
+        <div class="flex items-center gap-1.5 text-xs sm:text-sm text-brand-amber font-medium">
+          <span>🕒</span>
+          <span id="dispatch-lead-window">Lead window: ~3 hours remaining</span>
+        </div>
+      </div>
+
+      <!-- Card 1: Suggested Offer -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-brand-card border border-brand-border flex flex-col gap-4 shadow-lg shadow-black/20">
+        <div class="flex items-start justify-between">
+          <div class="flex flex-col">
+            <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">SUGGESTED OFFER</span>
+            <div class="flex items-baseline gap-2.5 mt-1.5">
+              <span id="dispatch-discounted-price" class="text-3xl sm:text-4xl font-extrabold text-brand-mint tracking-tight">$1,360</span>
+              <span id="dispatch-original-price" class="text-sm sm:text-base text-zinc-500 line-through">$1,600</span>
+              <span id="dispatch-discount-badge" class="px-2.5 py-0.5 rounded text-xs font-bold bg-brand-greenPill text-brand-mint">15% OFF</span>
+            </div>
           </div>
-          <span class="px-2.5 py-1 rounded-full bg-brand-redBadge text-brand-redText text-xs font-bold border border-red-900/40">
-            5 Vacant
+          <div class="flex flex-col text-right">
+            <span class="text-xs font-semibold text-zinc-400">Standard Rate</span>
+            <span id="dispatch-standard-rate" class="text-sm sm:text-base font-semibold text-white mt-1">$1,600 / hr</span>
+          </div>
+        </div>
+
+        <!-- Cohort Targeting bullet -->
+        <div class="pt-3 border-t border-brand-border/60 flex items-center gap-2 text-xs sm:text-sm text-zinc-300">
+          <span class="w-2 h-2 rounded-full bg-brand-mint shrink-0"></span>
+          <span>Targeting <strong id="dispatch-target-cohort" class="text-white font-semibold">Weekend Football Players</strong> (<span id="dispatch-captains-count">90</span> captains active now)</span>
+        </div>
+      </div>
+
+      <!-- Card 2: WhatsApp Message Preview -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-brand-card border border-brand-border flex flex-col gap-3 shadow-lg shadow-black/20">
+        <div class="flex items-center justify-between text-xs sm:text-sm">
+          <span class="font-semibold uppercase tracking-wider text-zinc-400 text-xs">WHATSAPP MESSAGE PREVIEW</span>
+          <span class="text-brand-mint font-medium text-xs flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-brand-mint"></span>
+            Ready to send
           </span>
         </div>
 
-        <!-- Sport Filter Chips -->
-        <div class="flex gap-2 overflow-x-auto py-1">
-          <button onclick="filterSlots('all')" class="slot-filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-brand-mint text-brand-dark">All</button>
-          <button onclick="filterSlots('Football')" class="slot-filter-btn px-3 py-1 rounded-full text-xs font-medium bg-brand-card text-zinc-400 border border-brand-border hover:text-white">Football</button>
-          <button onclick="filterSlots('Cricket')" class="slot-filter-btn px-3 py-1 rounded-full text-xs font-medium bg-brand-card text-zinc-400 border border-brand-border hover:text-white">Cricket</button>
-          <button onclick="filterSlots('Basketball')" class="slot-filter-btn px-3 py-1 rounded-full text-xs font-medium bg-brand-card text-zinc-400 border border-brand-border hover:text-white">Basketball</button>
+        <!-- Message Text Box -->
+        <div class="p-4 rounded-xl bg-brand-dark/95 border border-brand-border text-xs sm:text-sm leading-relaxed text-zinc-200">
+          <p id="dispatch-whatsapp-text">
+            ⚽ <strong>Turf Alert:</strong> Apex Arena 20:00-21:00 tonight has opened up! 15% off at <strong>$1,360/hr</strong>. Reply to book or tap: <span class="text-brand-mint underline">turfpulse.ai/book/s1016</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Primary Action: Broadcast via WhatsApp Button -->
+      <div class="flex flex-col gap-3 mt-1">
+        <button id="broadcast-btn" onclick="triggerBroadcast()" class="w-full py-4 px-6 rounded-xl bg-brand-mint hover:bg-brand-mintHover text-brand-mintDark font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-brand-mint/15 transition active:scale-[0.99]">
+          <svg class="w-5 h-5 fill-current rotate-45 mb-0.5" viewBox="0 0 24 24">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+          <span id="broadcast-btn-text">Broadcast via WhatsApp (90 Captains)</span>
+        </button>
+
+        <!-- Secondary Action: Edit Message or Rate -->
+        <button onclick="openEditModal()" class="w-full py-2 flex items-center justify-center gap-1.5 text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition">
+          <span>✏️</span>
+          <span>Edit Message or Rate</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: ANALYTICS SCREEN (EXACT SCREENSHOT 2 MATCH)       -->
+    <!-- ======================================================== -->
+    <section id="screen-analytics" class="hidden flex flex-col gap-6 max-w-2xl mx-auto w-full animate-fadeIn">
+      <!-- Header -->
+      <div class="flex flex-col">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Analytics</h1>
+        <span class="text-xs sm:text-sm text-zinc-400 mt-0.5 font-medium">Apex Arena</span>
+      </div>
+
+      <!-- Top Two Metric Cards Side-by-Side -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Occupancy Card -->
+        <div class="p-5 rounded-2xl bg-brand-card border border-brand-border flex flex-col justify-between shadow-lg shadow-black/20">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">OCCUPANCY</span>
+          <div class="my-3">
+            <span id="stat-occupancy-rate" class="text-4xl font-extrabold text-white tracking-tight">78.4%</span>
+          </div>
+          <span class="text-xs font-semibold text-brand-mint">+14% this month</span>
         </div>
 
-        <!-- Slots List -->
-        <div id="slots-list-container" class="flex flex-col gap-3 mt-1">
-          <!-- S1016 Prime Card (Hero) -->
-          <div onclick="openDispatchForSlot('S1016')" class="p-4 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-mint/60 cursor-pointer transition relative group">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-semibold tracking-wider uppercase text-zinc-400">FOOTBALL • PITCH A</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-redBadge text-brand-redText">VACANT</span>
+        <!-- Rescued Revenue Card -->
+        <div class="p-5 rounded-2xl bg-brand-card border border-brand-border flex flex-col justify-between shadow-lg shadow-black/20">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">RESCUED REVENUE</span>
+          <div class="my-3">
+            <span id="stat-rescued-revenue" class="text-4xl font-extrabold text-brand-mint tracking-tight">$18,420</span>
+          </div>
+          <span class="text-xs text-zinc-400">from unfilled slots</span>
+        </div>
+      </div>
+
+      <!-- Discipline Yield Section -->
+      <div class="flex flex-col gap-3.5 mt-2">
+        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">DISCIPLINE YIELD</span>
+
+        <!-- Discipline List -->
+        <div class="flex flex-col gap-3">
+          <!-- Football -->
+          <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex flex-col gap-2.5">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
+              <span class="font-bold text-white">Football</span>
+              <span class="text-zinc-300 font-semibold">86% fill • $24.8k</span>
             </div>
-            <div class="flex items-baseline justify-between mt-2">
-              <h3 class="text-lg font-bold text-white group-hover:text-brand-mint transition">Tonight, 20:00 – 21:00</h3>
-              <span class="text-sm font-bold text-brand-mint">$1,360</span>
-            </div>
-            <div class="flex items-center justify-between mt-2 text-xs">
-              <span class="text-brand-amber font-medium flex items-center gap-1">
-                🕒 ~3h remaining
-              </span>
-              <span class="px-2 py-0.5 rounded bg-brand-greenPill text-brand-mint text-[11px] font-bold">15% OFF REC</span>
-            </div>
-            <div class="mt-3 pt-2.5 border-t border-brand-border/60 flex items-center justify-between text-xs text-zinc-400">
-              <span>90 Captains Ready</span>
-              <span class="text-brand-mint font-semibold flex items-center gap-0.5 group-hover:translate-x-1 transition">Dispatch →</span>
+            <div class="w-full h-2 rounded-full bg-zinc-800 overflow-hidden">
+              <div class="h-full bg-brand-mint rounded-full" style="width: 86%;"></div>
             </div>
           </div>
 
-          <!-- S1003 Afternoon Slot -->
-          <div onclick="openDispatchForSlot('S1003')" class="p-4 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-mint/60 cursor-pointer transition group">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-semibold tracking-wider uppercase text-zinc-400">FOOTBALL • APEX ARENA</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-redBadge text-brand-redText">VACANT</span>
+          <!-- Cricket -->
+          <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex flex-col gap-2.5">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
+              <span class="font-bold text-white">Cricket</span>
+              <span class="text-zinc-300 font-semibold">72% fill • $16.2k</span>
             </div>
-            <div class="flex items-baseline justify-between mt-2">
-              <h3 class="text-lg font-bold text-white group-hover:text-brand-mint transition">Today, 14:00 – 15:00</h3>
-              <span class="text-sm font-bold text-brand-mint">$860</span>
-            </div>
-            <div class="flex items-center justify-between mt-2 text-xs">
-              <span class="text-zinc-400 font-medium">Off-Peak Afternoon</span>
-              <span class="px-2 py-0.5 rounded bg-brand-greenPill text-brand-mint text-[11px] font-bold">25% OFF REC</span>
-            </div>
-            <div class="mt-3 pt-2.5 border-t border-brand-border/60 flex items-center justify-between text-xs text-zinc-400">
-              <span>Price Sensitive Cohort (75)</span>
-              <span class="text-brand-mint font-semibold flex items-center gap-0.5 group-hover:translate-x-1 transition">Dispatch →</span>
+            <div class="w-full h-2 rounded-full bg-zinc-800 overflow-hidden">
+              <div class="h-full bg-brand-amber rounded-full" style="width: 72%;"></div>
             </div>
           </div>
 
-          <!-- S1004 Cricket Slot -->
-          <div onclick="openDispatchForSlot('S1004')" class="p-4 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-mint/60 cursor-pointer transition group">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-semibold tracking-wider uppercase text-zinc-400">CRICKET • APEX ARENA</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-redBadge text-brand-redText">VACANT</span>
+          <!-- Basketball -->
+          <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex flex-col gap-2.5">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
+              <span class="font-bold text-white">Basketball</span>
+              <span class="text-zinc-300 font-semibold">68% fill • $9.1k</span>
             </div>
-            <div class="flex items-baseline justify-between mt-2">
-              <h3 class="text-lg font-bold text-white group-hover:text-brand-mint transition">Tonight, 20:00 – 21:00</h3>
-              <span class="text-sm font-bold text-white">$1,200</span>
+            <div class="w-full h-2 rounded-full bg-zinc-800 overflow-hidden">
+              <div class="h-full bg-[#38bdf8] rounded-full" style="width: 68%;"></div>
             </div>
-            <div class="flex items-center justify-between mt-2 text-xs">
-              <span class="text-zinc-400 font-medium">Prime Box Cricket</span>
-              <span class="px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 text-[11px] font-medium">Standard Rate</span>
+          </div>
+
+          <!-- Badminton -->
+          <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex flex-col gap-2.5">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
+              <span class="font-bold text-white">Badminton</span>
+              <span class="text-zinc-300 font-semibold">81% fill • $7.4k</span>
             </div>
-            <div class="mt-3 pt-2.5 border-t border-brand-border/60 flex items-center justify-between text-xs text-zinc-400">
-              <span>Weekend Prime Cricket (55)</span>
-              <span class="text-brand-mint font-semibold flex items-center gap-0.5 group-hover:translate-x-1 transition">Dispatch →</span>
+            <div class="w-full h-2 rounded-full bg-zinc-800 overflow-hidden">
+              <div class="h-full bg-[#4ade80] rounded-full" style="width: 81%;"></div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ======================================================== -->
-      <!-- TAB 2: DISPATCH SCREEN (DIRECT SCREENSHOT 1 MATCH)      -->
-      <!-- ======================================================== -->
-      <section id="screen-dispatch" class="flex flex-col gap-4 animate-fadeIn">
-        <!-- Top App Bar -->
-        <div class="flex items-center justify-between">
-          <button onclick="switchTab('vacancies')" class="flex items-center gap-1.5 text-zinc-400 hover:text-white text-sm font-medium transition">
-            <span>←</span>
-            <span>Slots</span>
-          </button>
-          <span id="dispatch-slot-id" class="text-base font-bold text-white tracking-wide">Slot S1016</span>
-          <span id="dispatch-status-badge" class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-brand-redBadge text-brand-redText tracking-wider">
-            VACANT
-          </span>
+    <!-- ======================================================== -->
+    <!-- TAB 3: VACANCIES SCREEN                                   -->
+    <!-- ======================================================== -->
+    <section id="screen-vacancies" class="hidden flex flex-col gap-5 max-w-2xl mx-auto w-full animate-fadeIn">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Vacancies</h1>
+          <p class="text-xs sm:text-sm text-zinc-400 mt-0.5">Apex Arena • Unsold At-Risk Slots</p>
         </div>
+        <span class="px-3 py-1 rounded-full bg-brand-redBadge text-brand-redText text-xs font-bold border border-red-900/40">
+          5 Vacant
+        </span>
+      </div>
 
-        <!-- Slot Details Heading -->
-        <div class="mt-1 flex flex-col gap-1">
-          <span id="dispatch-turf-subtitle" class="text-[11px] font-semibold tracking-wider uppercase text-zinc-400">
-            FOOTBALL • APEX ARENA (PITCH A)
-          </span>
-          <h2 id="dispatch-time-heading" class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            Tonight, 20:00 – 21:00
-          </h2>
-          <div class="flex items-center gap-1.5 text-xs text-brand-amber font-medium mt-0.5">
-            <span>🕒</span>
-            <span id="dispatch-lead-window">Lead window: ~3 hours remaining</span>
+      <!-- Sport Filter Chips -->
+      <div class="flex gap-2 overflow-x-auto py-1">
+        <button onclick="filterSlots('all')" class="slot-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-mint text-brand-dark">All</button>
+        <button onclick="filterSlots('Football')" class="slot-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-brand-card text-zinc-400 border border-brand-border hover:text-white">Football</button>
+        <button onclick="filterSlots('Cricket')" class="slot-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-brand-card text-zinc-400 border border-brand-border hover:text-white">Cricket</button>
+        <button onclick="filterSlots('Basketball')" class="slot-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-brand-card text-zinc-400 border border-brand-border hover:text-white">Basketball</button>
+      </div>
+
+      <!-- Slots List -->
+      <div id="slots-list-container" class="flex flex-col gap-3.5 mt-1">
+        <!-- S1016 Prime Card (Hero) -->
+        <div onclick="openDispatchForSlot('S1016')" class="p-5 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-mint/60 cursor-pointer transition relative group shadow-md shadow-black/20">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold tracking-wider uppercase text-zinc-400">FOOTBALL • PITCH A</span>
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-brand-redBadge text-brand-redText">VACANT</span>
           </div>
-        </div>
-
-        <!-- Card 1: Suggested Offer -->
-        <div class="p-4 rounded-2xl bg-brand-card border border-brand-border/80 flex flex-col gap-3">
-          <div class="flex items-start justify-between">
-            <div class="flex flex-col">
-              <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">SUGGESTED OFFER</span>
-              <div class="flex items-baseline gap-2 mt-1">
-                <span id="dispatch-discounted-price" class="text-3xl font-extrabold text-brand-mint tracking-tight">$1,360</span>
-                <span id="dispatch-original-price" class="text-sm text-zinc-500 line-through">$1,600</span>
-                <span id="dispatch-discount-badge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-brand-greenPill text-brand-mint">15% OFF</span>
-              </div>
-            </div>
-            <div class="flex flex-col text-right">
-              <span class="text-[11px] font-semibold text-zinc-400">Standard Rate</span>
-              <span id="dispatch-standard-rate" class="text-sm font-semibold text-white mt-1">$1,600 / hr</span>
-            </div>
+          <div class="flex items-baseline justify-between mt-2.5">
+            <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-brand-mint transition">Tonight, 20:00 – 21:00</h3>
+            <span class="text-base font-bold text-brand-mint">$1,360</span>
           </div>
-
-          <!-- Cohort Targeting bullet -->
-          <div class="pt-2 border-t border-brand-border/60 flex items-center gap-2 text-xs text-zinc-300">
-            <span class="w-2 h-2 rounded-full bg-brand-mint shrink-0"></span>
-            <span>Targeting <strong id="dispatch-target-cohort" class="text-white font-semibold">Weekend Football Players</strong> (<span id="dispatch-captains-count">90</span> captains active now)</span>
-          </div>
-        </div>
-
-        <!-- Card 2: WhatsApp Message Preview -->
-        <div class="p-4 rounded-2xl bg-brand-card border border-brand-border/80 flex flex-col gap-2.5">
-          <div class="flex items-center justify-between text-xs">
-            <span class="font-semibold uppercase tracking-wider text-zinc-400 text-[11px]">WHATSAPP MESSAGE PREVIEW</span>
-            <span class="text-brand-mint font-medium text-[11px] flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-brand-mint"></span>
-              Ready to send
+          <div class="flex items-center justify-between mt-2.5 text-xs sm:text-sm">
+            <span class="text-brand-amber font-medium flex items-center gap-1">
+              🕒 ~3h remaining
             </span>
+            <span class="px-2.5 py-0.5 rounded bg-brand-greenPill text-brand-mint text-xs font-bold">15% OFF REC</span>
           </div>
-
-          <!-- Message Text Box -->
-          <div class="p-3.5 rounded-xl bg-brand-dark/90 border border-brand-border text-xs sm:text-[13px] leading-relaxed text-zinc-200">
-            <p id="dispatch-whatsapp-text">
-              ⚽ <strong>Turf Alert:</strong> Apex Arena 20:00-21:00 tonight has opened up! 15% off at <strong>$1,360/hr</strong>. Reply to book or tap: <span class="text-brand-mint underline">turfpulse.ai/book/s1016</span>
-            </p>
+          <div class="mt-3.5 pt-3 border-t border-brand-border/60 flex items-center justify-between text-xs text-zinc-400">
+            <span>90 Captains Ready</span>
+            <span class="text-brand-mint font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">Review & Dispatch →</span>
           </div>
         </div>
 
-        <!-- Primary Action: Broadcast via WhatsApp Button -->
-        <div class="flex flex-col gap-2 mt-1">
-          <button id="broadcast-btn" onclick="triggerBroadcast()" class="w-full py-3.5 px-4 rounded-xl bg-brand-mint hover:bg-brand-mintHover text-brand-mintDark font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-brand-mint/10 transition active:scale-[0.98]">
-            <svg class="w-4 h-4 fill-current rotate-45 mb-0.5" viewBox="0 0 24 24">
-              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-            </svg>
-            <span id="broadcast-btn-text">Broadcast via WhatsApp (90 Captains)</span>
-          </button>
-
-          <!-- Secondary Action: Edit Message or Rate -->
-          <button onclick="openEditModal()" class="w-full py-2 flex items-center justify-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-white transition">
-            <span>✏️</span>
-            <span>Edit Message or Rate</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- ======================================================== -->
-      <!-- TAB 3: ANALYTICS SCREEN (DIRECT SCREENSHOT 2 MATCH)     -->
-      <!-- ======================================================== -->
-      <section id="screen-analytics" class="hidden flex flex-col gap-5 animate-fadeIn">
-        <!-- Header -->
-        <div class="flex flex-col">
-          <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Analytics</h1>
-          <span class="text-xs text-zinc-400 mt-0.5 font-medium">Apex Arena</span>
-        </div>
-
-        <!-- Top Two Metric Cards Side-by-Side -->
-        <div class="grid grid-cols-2 gap-3">
-          <!-- Occupancy Card -->
-          <div class="p-4 rounded-2xl bg-brand-card border border-brand-border/80 flex flex-col justify-between">
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">OCCUPANCY</span>
-            <div class="my-2">
-              <span id="stat-occupancy-rate" class="text-3xl font-extrabold text-white tracking-tight">78.4%</span>
-            </div>
-            <span class="text-xs font-semibold text-brand-mint">+14% this month</span>
+        <!-- S1003 Afternoon Slot -->
+        <div onclick="openDispatchForSlot('S1003')" class="p-5 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-mint/60 cursor-pointer transition group shadow-md shadow-black/20">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold tracking-wider uppercase text-zinc-400">FOOTBALL • APEX ARENA</span>
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-brand-redBadge text-brand-redText">VACANT</span>
           </div>
-
-          <!-- Rescued Revenue Card -->
-          <div class="p-4 rounded-2xl bg-brand-card border border-brand-border/80 flex flex-col justify-between">
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">RESCUED REVENUE</span>
-            <div class="my-2">
-              <span id="stat-rescued-revenue" class="text-3xl font-extrabold text-brand-mint tracking-tight">$18,420</span>
-            </div>
-            <span class="text-xs text-zinc-400">from unfilled slots</span>
+          <div class="flex items-baseline justify-between mt-2.5">
+            <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-brand-mint transition">Today, 14:00 – 15:00</h3>
+            <span class="text-base font-bold text-brand-mint">$860</span>
+          </div>
+          <div class="flex items-center justify-between mt-2.5 text-xs sm:text-sm">
+            <span class="text-zinc-400 font-medium">Off-Peak Afternoon</span>
+            <span class="px-2.5 py-0.5 rounded bg-brand-greenPill text-brand-mint text-xs font-bold">25% OFF REC</span>
+          </div>
+          <div class="mt-3.5 pt-3 border-t border-brand-border/60 flex items-center justify-between text-xs text-zinc-400">
+            <span>Price Sensitive Cohort (75)</span>
+            <span class="text-brand-mint font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">Review & Dispatch →</span>
           </div>
         </div>
 
-        <!-- Discipline Yield Section -->
-        <div class="flex flex-col gap-3 mt-1">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">DISCIPLINE YIELD</span>
-
-          <!-- Discipline List -->
-          <div class="flex flex-col gap-2.5">
-            <!-- Football -->
-            <div class="p-3.5 rounded-xl bg-brand-card border border-brand-border/80 flex flex-col gap-2">
-              <div class="flex items-center justify-between text-xs sm:text-sm">
-                <span class="font-bold text-white">Football</span>
-                <span class="text-zinc-300 font-semibold">86% fill • $24.8k</span>
-              </div>
-              <div class="w-full h-1.5 rounded-full bg-zinc-800 overflow-hidden">
-                <div class="h-full bg-brand-mint rounded-full" style="width: 86%;"></div>
-              </div>
-            </div>
-
-            <!-- Cricket -->
-            <div class="p-3.5 rounded-xl bg-brand-card border border-brand-border/80 flex flex-col gap-2">
-              <div class="flex items-center justify-between text-xs sm:text-sm">
-                <span class="font-bold text-white">Cricket</span>
-                <span class="text-zinc-300 font-semibold">72% fill • $16.2k</span>
-              </div>
-              <div class="w-full h-1.5 rounded-full bg-zinc-800 overflow-hidden">
-                <div class="h-full bg-brand-amber rounded-full" style="width: 72%;"></div>
-              </div>
-            </div>
-
-            <!-- Basketball -->
-            <div class="p-3.5 rounded-xl bg-brand-card border border-brand-border/80 flex flex-col gap-2">
-              <div class="flex items-center justify-between text-xs sm:text-sm">
-                <span class="font-bold text-white">Basketball</span>
-                <span class="text-zinc-300 font-semibold">68% fill • $9.1k</span>
-              </div>
-              <div class="w-full h-1.5 rounded-full bg-zinc-800 overflow-hidden">
-                <div class="h-full bg-[#38bdf8] rounded-full" style="width: 68%;"></div>
-              </div>
-            </div>
-
-            <!-- Badminton -->
-            <div class="p-3.5 rounded-xl bg-brand-card border border-brand-border/80 flex flex-col gap-2">
-              <div class="flex items-center justify-between text-xs sm:text-sm">
-                <span class="font-bold text-white">Badminton</span>
-                <span class="text-zinc-300 font-semibold">81% fill • $7.4k</span>
-              </div>
-              <div class="w-full h-1.5 rounded-full bg-zinc-800 overflow-hidden">
-                <div class="h-full bg-[#4ade80] rounded-full" style="width: 81%;"></div>
-              </div>
-            </div>
+        <!-- S1004 Cricket Slot -->
+        <div onclick="openDispatchForSlot('S1004')" class="p-5 rounded-2xl bg-brand-card border border-brand-border hover:border-brand-mint/60 cursor-pointer transition group shadow-md shadow-black/20">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold tracking-wider uppercase text-zinc-400">CRICKET • APEX ARENA</span>
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-brand-redBadge text-brand-redText">VACANT</span>
           </div>
-        </div>
-      </section>
-
-      <!-- ======================================================== -->
-      <!-- TAB 4: AUDIT LOG SCREEN                                  -->
-      <!-- ======================================================== -->
-      <section id="screen-log" class="hidden flex flex-col gap-4 animate-fadeIn">
-        <div class="flex items-center justify-between">
-          <div>
-            <h1 class="text-2xl font-bold text-white tracking-tight">Dispatch Log</h1>
-            <p class="text-xs text-zinc-400 mt-0.5">Real-time entries in booking_log.csv</p>
+          <div class="flex items-baseline justify-between mt-2.5">
+            <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-brand-mint transition">Tonight, 20:00 – 21:00</h3>
+            <span class="text-base font-bold text-white">$1,200</span>
           </div>
-          <span id="log-count-badge" class="px-2.5 py-1 rounded-full bg-brand-card text-brand-mint text-xs font-bold border border-brand-border">
-            10 Logs
-          </span>
-        </div>
-
-        <div id="logs-list-container" class="flex flex-col gap-2.5 mt-1">
-          <!-- Dynamically populated from /api/logs -->
-          <div class="p-3.5 rounded-xl bg-brand-card border border-brand-border flex flex-col gap-1.5">
-            <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-brand-mint">Slot S1016</span>
-              <span class="text-zinc-400">Just now</span>
-            </div>
-            <p class="text-xs text-zinc-300">Broadcast sent to <strong>Weekend Football Players</strong> with 15% discount.</p>
-            <div class="flex items-center gap-2 text-[11px] text-zinc-400 mt-1">
-              <span class="px-1.5 py-0.5 rounded bg-brand-greenPill text-brand-mint font-semibold">WhatsApp</span>
-              <span>Rate: $1,360/hr</span>
-            </div>
+          <div class="flex items-center justify-between mt-2.5 text-xs sm:text-sm">
+            <span class="text-zinc-400 font-medium">Prime Box Cricket</span>
+            <span class="px-2.5 py-0.5 rounded bg-zinc-800 text-zinc-300 text-xs font-medium">Standard Rate</span>
           </div>
-        </div>
-      </section>
-
-    </div>
-
-    <!-- ======================================================== -->
-    <!-- BOTTOM NAVIGATION BAR (MATCHING BOTH SCREENSHOTS)        -->
-    <!-- ======================================================== -->
-    <nav class="absolute bottom-0 left-0 right-0 h-16 bg-brand-bg/95 backdrop-blur-md border-t border-brand-border/80 px-4 flex items-center justify-around z-20">
-      <button id="nav-vacancies" onclick="switchTab('vacancies')" class="nav-tab-btn flex-1 py-2 px-1 rounded-xl text-xs font-medium text-zinc-400 hover:text-zinc-200 transition text-center">
-        Vacancies
-      </button>
-      <button id="nav-dispatch" onclick="switchTab('dispatch')" class="nav-tab-btn flex-1 py-2 px-1 rounded-xl text-xs font-semibold active-tab transition text-center">
-        Dispatch
-      </button>
-      <button id="nav-analytics" onclick="switchTab('analytics')" class="nav-tab-btn flex-1 py-2 px-1 rounded-xl text-xs font-medium text-zinc-400 hover:text-zinc-200 transition text-center">
-        Analytics
-      </button>
-      <button id="nav-log" onclick="switchTab('log')" class="nav-tab-btn flex-1 py-2 px-1 rounded-xl text-xs font-medium text-zinc-400 hover:text-zinc-200 transition text-center">
-        Log
-      </button>
-    </nav>
-
-    <!-- ======================================================== -->
-    <!-- MODAL: EDIT MESSAGE OR RATE                             -->
-    <!-- ======================================================== -->
-    <div id="edit-modal" class="hidden absolute inset-0 bg-black/80 backdrop-blur-sm z-30 flex items-end sm:items-center justify-center p-4">
-      <div class="w-full bg-brand-card border border-brand-border rounded-2xl p-5 flex flex-col gap-4 shadow-2xl animate-scaleUp">
-        <div class="flex items-center justify-between">
-          <h3 class="text-base font-bold text-white">Customize Offer & Message</h3>
-          <button onclick="closeEditModal()" class="text-zinc-400 hover:text-white text-lg font-bold">✕</button>
-        </div>
-
-        <!-- Discount Slider -->
-        <div class="flex flex-col gap-1.5">
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-zinc-300 font-semibold">Promotional Discount:</span>
-            <span id="modal-discount-display" class="font-bold text-brand-mint text-sm">15% OFF</span>
+          <div class="mt-3.5 pt-3 border-t border-brand-border/60 flex items-center justify-between text-xs text-zinc-400">
+            <span>Weekend Prime Cricket (55)</span>
+            <span class="text-brand-mint font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">Review & Dispatch →</span>
           </div>
-          <input type="range" id="modal-discount-slider" min="0" max="30" step="5" value="15" oninput="updateModalDiscount(this.value)" class="w-full accent-brand-mint">
-          <span class="text-[11px] text-zinc-500">Safe floor: Never prices below $450 cost to operate.</span>
-        </div>
-
-        <!-- Editable Message Area -->
-        <div class="flex flex-col gap-1.5">
-          <span class="text-xs text-zinc-300 font-semibold">WhatsApp Message:</span>
-          <textarea id="modal-message-input" rows="4" class="w-full p-2.5 rounded-xl bg-brand-dark border border-brand-border text-xs text-white leading-relaxed focus:outline-none focus:border-brand-mint resize-none"></textarea>
-        </div>
-
-        <!-- Modal Actions -->
-        <div class="flex gap-2 mt-1">
-          <button onclick="closeEditModal()" class="flex-1 py-2.5 rounded-xl bg-zinc-800 text-zinc-300 font-semibold text-xs hover:bg-zinc-700 transition">Cancel</button>
-          <button onclick="saveModalChanges()" class="flex-1 py-2.5 rounded-xl bg-brand-mint text-brand-mintDark font-bold text-xs hover:bg-brand-mintHover transition">Apply Changes</button>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Toast Notification -->
-    <div id="toast-notification" class="hidden absolute top-4 left-4 right-4 bg-brand-card border border-brand-mint text-white p-3.5 rounded-xl shadow-2xl z-40 flex items-center gap-2.5 transition">
-      <span class="w-5 h-5 rounded-full bg-brand-mint text-brand-mintDark flex items-center justify-center text-xs font-bold">✓</span>
-      <div class="flex flex-col text-xs">
-        <span class="font-bold text-brand-mint">Dispatched via WhatsApp</span>
-        <span id="toast-text" class="text-zinc-300">Broadcast sent to 90 Captains!</span>
+    <!-- ======================================================== -->
+    <!-- TAB 4: AUDIT LOG SCREEN                                  -->
+    <!-- ======================================================== -->
+    <section id="screen-log" class="hidden flex flex-col gap-5 max-w-2xl mx-auto w-full animate-fadeIn">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Dispatch Audit Log</h1>
+          <p class="text-xs sm:text-sm text-zinc-400 mt-0.5">Real-time append records in booking_log.csv</p>
+        </div>
+        <span id="log-count-badge" class="px-3 py-1 rounded-full bg-brand-card text-brand-mint text-xs font-bold border border-brand-border">
+          10 Logs
+        </span>
       </div>
-    </div>
+
+      <div id="logs-list-container" class="flex flex-col gap-3 mt-1">
+        <!-- Dynamically populated from /api/logs -->
+        <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex flex-col gap-2">
+          <div class="flex items-center justify-between text-xs sm:text-sm">
+            <span class="font-bold text-brand-mint">Slot S1016</span>
+            <span class="text-zinc-400 text-xs">Just now</span>
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-300">Broadcast sent to <strong>Weekend Football Players</strong> with 15% discount.</p>
+          <div class="flex items-center gap-2 text-xs text-zinc-400 mt-1">
+            <span class="px-2 py-0.5 rounded bg-brand-greenPill text-brand-mint font-semibold">WhatsApp Broadcast</span>
+            <span>Rate: $1,360/hr</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- Application Logic -->
+  <!-- ======================================================== -->
+  <!-- MODAL: EDIT MESSAGE OR RATE                             -->
+  <!-- ======================================================== -->
+  <div id="edit-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-brand-card border border-brand-border rounded-2xl p-6 flex flex-col gap-5 shadow-2xl animate-scaleUp">
+      <div class="flex items-center justify-between border-b border-brand-border/60 pb-3">
+        <h3 class="text-base sm:text-lg font-bold text-white">Customize Offer & WhatsApp Copy</h3>
+        <button onclick="closeEditModal()" class="text-zinc-400 hover:text-white text-lg font-bold p-1">✕</button>
+      </div>
+
+      <!-- Discount Slider -->
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between text-xs sm:text-sm">
+          <span class="text-zinc-300 font-semibold">Promotional Discount:</span>
+          <span id="modal-discount-display" class="font-bold text-brand-mint text-base">15% OFF</span>
+        </div>
+        <input type="range" id="modal-discount-slider" min="0" max="30" step="5" value="15" oninput="updateModalDiscount(this.value)" class="w-full accent-brand-mint cursor-pointer">
+        <span class="text-xs text-zinc-500">Financial safety guardrail: Never prices below $450 cost to operate.</span>
+      </div>
+
+      <!-- Editable Message Area -->
+      <div class="flex flex-col gap-2">
+        <span class="text-xs sm:text-sm text-zinc-300 font-semibold">WhatsApp Copy Preview:</span>
+        <textarea id="modal-message-input" rows="4" class="w-full p-3 rounded-xl bg-brand-dark border border-brand-border text-xs sm:text-sm text-white leading-relaxed focus:outline-none focus:border-brand-mint resize-none"></textarea>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="flex gap-3 pt-2">
+        <button onclick="closeEditModal()" class="flex-1 py-3 rounded-xl bg-zinc-800 text-zinc-300 font-semibold text-xs sm:text-sm hover:bg-zinc-700 transition">Cancel</button>
+        <button onclick="saveModalChanges()" class="flex-1 py-3 rounded-xl bg-brand-mint text-brand-mintDark font-bold text-xs sm:text-sm hover:bg-brand-mintHover transition">Apply Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-notification" class="hidden fixed bottom-6 right-6 max-w-md bg-brand-card border border-brand-mint text-white p-4 rounded-xl shadow-2xl z-50 flex items-center gap-3 transition">
+    <span class="w-6 h-6 rounded-full bg-brand-mint text-brand-mintDark flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+    <div class="flex flex-col text-xs sm:text-sm">
+      <span class="font-bold text-brand-mint">Dispatched via WhatsApp</span>
+      <span id="toast-text" class="text-zinc-300">Broadcast sent to 90 Captains!</span>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT APPLICATION LOGIC                            -->
+  <!-- ======================================================== -->
   <script>
-    // Current Active State
     let activeTab = 'dispatch';
     let currentSlot = {
       slot_id: 'S1016',
@@ -455,20 +462,20 @@
       message: '⚽ Turf Alert: Apex Arena 20:00-21:00 tonight has opened up! 15% off at $1,360/hr. Reply to book or tap: turfpulse.ai/book/s1016'
     };
 
-    let allSlots = [];
-
-    // Switch Screen Tabs
+    // Switch Navigation Tabs
     function switchTab(tabName) {
       activeTab = tabName;
-      ['vacancies', 'dispatch', 'analytics', 'log'].forEach(t => {
+      ['dispatch', 'analytics', 'vacancies', 'log'].forEach(t => {
         const screen = document.getElementById('screen-' + t);
         const navBtn = document.getElementById('nav-' + t);
         if (t === tabName) {
           screen.classList.remove('hidden');
-          navBtn.classList.add('active-tab');
+          navBtn.classList.add('active-nav-tab');
+          navBtn.classList.remove('text-zinc-400');
         } else {
           screen.classList.add('hidden');
-          navBtn.classList.remove('active-tab');
+          navBtn.classList.remove('active-nav-tab');
+          navBtn.classList.add('text-zinc-400');
         }
       });
 
@@ -479,7 +486,7 @@
       }
     }
 
-    // Load specific slot into Dispatch screen
+    // Open specific slot into Dispatch screen
     async function openDispatchForSlot(slotId) {
       try {
         const res = await fetch(`/api/slots/${slotId}`);
@@ -504,7 +511,7 @@
           renderDispatchScreen();
         }
       } catch (e) {
-        console.log('Using local slot data:', e);
+        console.log('Local slot sync:', e);
       }
       switchTab('dispatch');
     }
@@ -614,31 +621,13 @@
       }, 4000);
     }
 
-    // Toggle Mobile vs Full Desktop View
-    let isPhoneView = true;
-    function toggleViewMode() {
-      const container = document.getElementById('app-container');
-      const btn = document.getElementById('view-toggle-btn');
-      if (isPhoneView) {
-        container.classList.remove('max-w-md');
-        container.classList.add('max-w-4xl');
-        btn.innerText = '💻 View: Expanded';
-        isPhoneView = false;
-      } else {
-        container.classList.remove('max-w-4xl');
-        container.classList.add('max-w-md');
-        btn.innerText = '📱 View: Phone';
-        isPhoneView = true;
-      }
-    }
-
     // Filter Slots in Vacancies Tab
     function filterSlots(sport) {
       document.querySelectorAll('.slot-filter-btn').forEach(btn => {
         if (btn.innerText.toLowerCase() === sport.toLowerCase() || (sport === 'all' && btn.innerText === 'All')) {
-          btn.className = 'slot-filter-btn px-3 py-1 rounded-full text-xs font-semibold bg-brand-mint text-brand-dark';
+          btn.className = 'slot-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-mint text-brand-dark';
         } else {
-          btn.className = 'slot-filter-btn px-3 py-1 rounded-full text-xs font-medium bg-brand-card text-zinc-400 border border-brand-border hover:text-white';
+          btn.className = 'slot-filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-brand-card text-zinc-400 border border-brand-border hover:text-white';
         }
       });
     }
@@ -654,14 +643,14 @@
 
           if (data.logs && data.logs.length > 0) {
             container.innerHTML = data.logs.map(log => `
-              <div class="p-3.5 rounded-xl bg-brand-card border border-brand-border flex flex-col gap-1.5">
-                <div class="flex items-center justify-between text-xs">
+              <div class="p-4 rounded-xl bg-brand-card border border-brand-border flex flex-col gap-2">
+                <div class="flex items-center justify-between text-xs sm:text-sm">
                   <span class="font-bold text-brand-mint">Slot ${log.slot_id}</span>
-                  <span class="text-zinc-500 text-[11px]">${String(log.timestamp).slice(0, 16).replace('T', ' ')}</span>
+                  <span class="text-zinc-500 text-xs">${String(log.timestamp).slice(0, 16).replace('T', ' ')}</span>
                 </div>
-                <p class="text-xs text-zinc-300">Targeted <strong>${log.segment_notified}</strong> with ${log.discount_pct}% discount.</p>
-                <div class="flex items-center gap-2 text-[11px] text-zinc-400 mt-0.5">
-                  <span class="px-1.5 py-0.5 rounded bg-brand-greenPill text-brand-mint font-semibold">${log.source || 'WhatsApp'}</span>
+                <p class="text-xs sm:text-sm text-zinc-300">Targeted <strong>${log.segment_notified}</strong> with ${log.discount_pct}% discount.</p>
+                <div class="flex items-center gap-2 text-xs text-zinc-400 mt-0.5">
+                  <span class="px-2 py-0.5 rounded bg-brand-greenPill text-brand-mint font-semibold">${log.source || 'WhatsApp'}</span>
                   <span>${log.decision}</span>
                 </div>
               </div>
@@ -694,13 +683,6 @@
     // Initialize UI on page load
     document.addEventListener('DOMContentLoaded', () => {
       renderDispatchScreen();
-      // Check health
-      fetch('/api/health').then(r => r.json()).then(h => {
-        const badge = document.getElementById('backend-status-badge');
-        if (badge && h.backend) {
-          badge.innerText = `${h.backend} Active`;
-        }
-      }).catch(() => {});
     });
   </script>
 </body>

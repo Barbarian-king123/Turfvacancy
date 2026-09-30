@@ -9,3 +9,5 @@ S1003,notify_small_discount,15.0,Slot has low fill rate; Lead time < 4 hours,Ape
 S1020,notify_small_discount,10.0,Outreach dispatch triggered from manager UI; Targeted cohort propensity match verified,Top Propensity Lead,turfpulse_whatsapp,2026-09-20T10:37:36.986462
 S1016,notify_small_discount,15.0,Outreach dispatch triggered from manager UI; Targeted cohort propensity match verified,Top Propensity Lead,turfpulse_whatsapp,2026-09-20T10:37:52.796305
 S1016,notify_discount,15,Recruiter-approved dispatch triggered from Dispatch UI,Weekend Football Players,express_whatsapp,2026-09-30T17:43:21.251Z
+S1016,notify_discount,15,Recruiter-approved dispatch triggered from Dispatch UI,Weekend Football Players,express_whatsapp,2026-09-30T18:00:13.430Z
+S1016,notify_discount,15,Recruiter-approved dispatch triggered from Dispatch UI,Football Weekday Regulars,express_whatsapp,2026-09-30T18:02:00.560Z
