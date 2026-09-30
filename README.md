@@ -1,11 +1,11 @@
 # TurfPulse AI ⚽🏏🎾
 ### Autonomous Revenue Management & Vacancy Dispatch System
 
-
+[![Node.js](https://img.shields.io/badge/Runtime-Node.js%2022-339933.svg?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Express.js](https://img.shields.io/badge/Backend-Express.js%205.x-000000.svg?logo=express&logoColor=white)](https://expressjs.com)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI%200.110-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
 [![Groq](https://img.shields.io/badge/AI%20Engine-Groq%20LPU%20(Llama--3.3--70B)-F55036.svg)](https://groq.com)
-[![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io)
 [![TailwindCSS](https://img.shields.io/badge/Design-TailwindCSS%20v3-38B2AC.svg?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -13,51 +13,99 @@
 
 ## 📌 Executive Summary
 
-Turf arenas suffer from predictable revenue leakage: last-minute cancellations and low-occupancy weekday time slots frequently go vacant, producing zero revenue while operational costs continue to tick.
+Sports turf arenas suffer from predictable revenue leakage: last-minute cancellations and off-peak weekday time slots frequently go vacant, producing $0 while operational expenses (floodlights, ground staff, maintenance) continue to tick.
 
 **TurfPulse AI** solves this autonomously:
-1. Detects vacant slots across arena pitches in real-time.
-2. Evaluates historical fill rates, time-to-kickoff lead times, and operating margins.
-3. Invokes **Groq LLM (Llama 3.3 70B)** to determine the optimal dynamic discount that strictly respects operational cost floors.
-4. Matches captain cohorts from customer profile databases based on sport and time affinity.
-5. Synthesizes personalized, high-converting WhatsApp & SMS broadcasts dispatched with a single click.
+1. **Detects** vacant slots across arena pitches in real time.
+2. **Evaluates** historical fill rates, time-to-kickoff lead times, and operating margins.
+3. **Invokes Groq LLM (Llama 3.3 70B)** to determine optimal dynamic discounts while strictly respecting break-even cost floors.
+4. **Matches** customer cohorts from customer profile databases based on sport affinity, time band, and price sensitivity.
+5. **Synthesizes & Dispatches** personalized, high-converting WhatsApp broadcasts in 1 click.
 
 ---
 
-## 🏗️ System Architecture
+## 🛠️ Backend Tech Stack & Architecture
+
+TurfPulse AI features a modern, dual-runtime backend architecture with a primary **Node.js & Express.js** server and an interoperable **Python FastAPI** service.
 
 ```
-+-------------------------------------------------------------------------------+
-|                             01 // DATA LAYER                                  |
-|   slots.csv  •  customer_segments.csv  •  booking_log.csv  •  data_manager.py |
-+-------------------------------------------------------------------------------+
+                          HTTP REQUEST (Client / Browser)
                                       │
-                                      ▼ (Python FastAPI Backend)
-+-------------------------------------------------------------------------------+
-|                         02 // GROQ LLM (API) ENGINE                           |
-|   Dynamic vacancy reasoning, fill rate analysis, margin safety & discounts    |
-+-------------------------------------------------------------------------------+
+                                      ▼
+                        ┌───────────────────────────┐
+                        │   Express.js Application  │
+                        │        (server.js)        │
+                        └─────────────┬─────────────┘
                                       │
-                                      ▼ (Outreach Matching & Formatting)
-+-------------------------------------------------------------------------------+
-|                    03 // MANAGER UI & OUTREACH DISPATCH                       |
-|   Real-time slot vacancy grid, 1-click WhatsApp/SMS broadcast to captains     |
-+-------------------------------------------------------------------------------+
+               ┌──────────────────────┴──────────────────────┐
+               ▼                                             ▼
+     ┌───────────────────┐                         ┌───────────────────┐
+     │ express.json()    │                         │ Custom Logger     │
+     │ Middleware        │                         │ Middleware        │
+     │ (Parses req.body) │                         │ (Logs & calls     │
+     └─────────┬─────────┘                         │  next())          │
+               │                                   └─────────┬─────────┘
+               └──────────────────────┬──────────────────────┘
+                                      │
+                                      ▼
+                        ┌───────────────────────────┐
+                        │       Route Handlers      │
+                        │                           │
+                        │  GET  /api/slots          │
+                        │  GET  /api/slots/:id      │
+                        │  GET  /api/analytics      │
+                        │  POST /api/broadcast      │
+                        │  GET  /api/logs           │
+                        └─────────────┬─────────────┘
+                                      │
+                                      ▼
+                        ┌───────────────────────────┐
+                        │    CSV Data Persistence   │
+                        │   (slots.csv, logs.csv)   │
+                        └─────────────┬─────────────┘
+                                      │
+                                      ▼
+                          HTTP RESPONSE (res.json())
 ```
+
+### 1. Node.js & Express.js REST API (`server.js`)
+* **Framework:** Express.js 5.x on Node.js v22.
+* **Request Body Parsing:** `app.use(express.json())` middleware parses incoming JSON payloads directly into `req.body`.
+* **Custom Middleware Pipeline:** Intercepts every incoming request, logs timestamp, HTTP method, and URL, then invokes `next()` to pass control to route handlers.
+* **CORS Middleware:** `cors()` enables cross-origin resource sharing for frontend clients.
+* **Static File Server:** `express.static('static')` serves the production dashboard interface.
+* **Dynamic Route Parameters:** `req.params.id` in `GET /api/slots/:id` retrieves individual slot metrics and calculates real-time offers.
+* **Query Parameters:** `req.query` in `GET /api/slots?status=vacant&sport=Football` provides multi-attribute filtering.
+* **Standard HTTP Status Codes:** `200 OK`, `201 Created` (on broadcast), `400 Bad Request`, `404 Not Found`, `500 Internal Server Error`.
+
+### 2. AI Decision Engine & Guardrails (`decision_engine/groq_agent.py`)
+* **Groq LPU Inference:** Uses `llama-3.3-70b-versatile` to evaluate occupancy variables with ultra-low latency (<150ms).
+* **Deterministic Financial Safety Guardrail:** A mathematical protection layer wraps LLM outputs:
+  $$\text{Max Allowable Discount} = \max\left(0, \frac{\text{base\_price} - \text{cost\_to\_operate}}{\text{base\_price}} \times 100 - 10\%\right)$$
+  The system strictly forbids discounting below the operating cost floor, maintaining at least a 10% safety margin.
+* **Intelligent Heuristic Fallback Engine:** Built-in revenue management algorithms ensure 100% uptime during network dropouts or API rate limits.
+
+### 3. Data Persistence Layer (`data_layer/`)
+* **`slots.csv`:** 180 slots across 3 turfs (*Apex Arena*, *Velocity Turf*, *Champions Court*) over a 14-day schedule.
+* **`customer_segments.csv`:** 7 distinct customer cohorts representing 405 active team captains.
+* **`booking_log.csv`:** Append-only audit stream tracking every AI decision, discount applied, and timestamp.
+* **Production Mapping:** The CSV architecture maps 1:1 to relational database tables (PostgreSQL/MySQL) or MongoDB collections without requiring local database setup for demos.
+
+### 4. Alternative Python Backend (`server.py` & `app.py`)
+* **FastAPI 0.110:** Asynchronous REST API utilizing Pydantic data schemas.
+* **Streamlit (`app.py`):** Single-command UI wrapper for instant evaluations.
 
 ---
 
 ## 🚀 Key Features
 
-- **Autonomous Vacancy Grid**: Live slot matrix across multiple pitches and sports (Football, Cricket, Padel) with urgency indicators (< 3h, < 6h, peak vs off-peak).
-- **Groq LLM Decision Reasoning**: Analyzes vacancy risks using ultra-fast inference (< 150ms) to produce multi-factor operational explanations.
-- **Financial Safety Guardrail**: Strictly protects operating margins (`cost_to_operate`)—never discounts below the break-even floor.
-- **Cohort Affinity Matching**: Connects vacant pitches with the highest-converting customer segments from `customer_segments.csv`.
-- **1-Click WhatsApp Dispatch**: Generates customized WhatsApp templates with countdown timers, team captain names, and direct booking links.
-- **Dual Runtime Support**:
-  - **FastAPI Native Dashboard** (Default): Full-bleed, pixel-perfect management UI with Tailwind CSS.
-  - **Streamlit App**: Ready-to-go dashboard launcher for instant hackathon evaluations.
-- **Continuous Audit Trail**: Appends all decisions, discount percentages, and timestamps to `booking_log.csv`.
+- **Executive Web Dashboard**: Clean, dark-mode operations portal built with Tailwind CSS.
+- **Autonomous Vacancy Matrix**: Real-time slot grid with urgency countdowns (< 3h remaining, prime peak, off-peak).
+- **Groq LLM Decision Reasoning**: Analyzes vacancy risks using multi-factor prompt reasoning.
+- **Financial Safety Guardrail**: Never prices below the break-even operating floor.
+- **Cohort Affinity Matching**: Connects open slots with high-propensity customer segments.
+- **1-Click WhatsApp Broadcast**: Synthesizes conversion-focused sports copy with countdown booking links.
+- **Continuous Audit Trail**: Appends all dispatches and discount records to `booking_log.csv`.
 
 ---
 
@@ -65,28 +113,30 @@ Turf arenas suffer from predictable revenue leakage: last-minute cancellations a
 
 ```bash
 Turfvacancy/
-├── data_layer/                  # 01 // Data Layer
-│   ├── slots.csv                # 180 slots across 3 turfs and 3 sports
+├── server.js                    # 01 // Node.js & Express.js REST API Server
+├── package.json                 # Node dependencies (express, cors, dotenv)
+├── static/                      # 02 // Frontend Web Dashboard
+│   └── index.html               # Clean dark-mode manager operations portal
+├── data_layer/                  # 03 // Data Layer
+│   ├── slots.csv                # 180 slots across 3 turfs and 4 sports
 │   ├── customer_segments.csv    # 7 customer segments (405 player profiles)
-│   ├── booking_log.csv          # Real-time append stream of decisions
+│   ├── booking_log.csv          # Real-time append audit stream
 │   ├── data_manager.py          # CSV loaders, validation & update functions
-│   ├── generate_dataset.py      # Reproducible realistic dataset generator
-│   └── validate_and_test.py     # Automated data schema & read/write test suite
-├── decision_engine/             # 02 // AI Decision Engine
+│   ├── generate_dataset.py      # Reproducible dataset generator
+│   └── validate_and_test.py     # Data validation & test harness
+├── decision_engine/             # 04 // AI Decision Engine
 │   ├── __init__.py
 │   └── groq_agent.py            # Groq Llama-3.3-70B multi-factor reasoning
-├── outreach_layer/              # 03 // Outreach Dispatch
+├── outreach_layer/              # 05 // Outreach Dispatch
 │   ├── __init__.py
 │   └── outreach.py              # Cohort matching & personalized message synthesis
-├── static/                      # Frontend Assets & Dashboard
-│   └── index.html               # Pixel-perfect Arena Ops Manager UI
-├── server.py                    # FastAPI REST API Backend
+├── server.py                    # Python FastAPI REST API Backend
 ├── app.py                       # Streamlit Application Wrapper
 ├── run.py                       # Convenience launcher (FastAPI / Streamlit)
-├── requirements.txt             # Python production dependencies
-├── Procfile                     # Heroku / Render / Railway deployment
-├── render.yaml                  # Render Blueprint deployment config
-├── Dockerfile                   # Production Docker container image
+├── requirements.txt             # Python dependencies
+├── Procfile                     # Deployment process config
+├── render.yaml                  # Render Blueprint config
+├── Dockerfile                   # Production Docker container
 └── README.md                    # System documentation
 ```
 
@@ -94,71 +144,71 @@ Turfvacancy/
 
 ## ⚡ Quickstart Guide
 
-### 1. Clone & Setup Virtual Environment
+### Option A: Node.js & Express (Recommended)
 
 ```bash
 git clone https://github.com/Barbarian-king123/Turfvacancy.git
 cd Turfvacancy
 
+# Install Node dependencies
+npm install
+
+# Start Express server
+npm start
+# or: node server.js
+```
+
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
+
+---
+
+### Option B: Python & FastAPI
+
+```bash
+# Setup virtual environment
 python -m venv venv
-# On Windows:
+# Windows:
 venv\Scripts\activate
-# On macOS/Linux:
+# macOS/Linux:
 source venv/bin/activate
 
+# Install dependencies
 pip install -r requirements.txt
-```
 
-### 2. Configure Environment Variables
-
-Create a `.env` file from `.env.example`:
-
-```bash
-cp .env.example .env
-```
-
-Add your Groq API key:
-```env
-GROQ_API_KEY=gsk_your_groq_api_key_here
-GROQ_MODEL=llama-3.3-70b-versatile
-PORT=8000
-```
-*(Note: If no Groq API key is supplied, the system automatically falls back to its built-in revenue management heuristics without crashing).*
-
-### 3. Run the Application
-
-#### Option A: FastAPI Web Dashboard (Recommended)
-```bash
+# Run FastAPI server
 python run.py
 # or: uvicorn server:app --host 127.0.0.1 --port 8000 --reload
 ```
+
 Open **[http://127.0.0.1:8000](http://127.0.0.1:8000)** in your browser.
 
-#### Option B: Streamlit Dashboard
+---
+
+### Option C: Streamlit App
+
 ```bash
-python run.py streamlit
-# or: streamlit run app.py
+streamlit run app.py
 ```
+
 Open **[http://127.0.0.1:8501](http://127.0.0.1:8501)** in your browser.
 
 ---
 
 ## 📡 REST API Reference
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/` | Serves the interactive manager dashboard UI |
-| `GET` | `/api/health` | Returns backend telemetry, CSV row counts, and Groq status |
-| `GET` | `/api/slots` | Query slots with filters (`date`, `turf_id`, `sport`, `status`) |
-| `GET` | `/api/metrics` | Returns live arena KPIs (vacancies, at-risk revenue, fill rate) |
-| `POST` | `/api/analyze-slot` | Runs Groq LLM inference on a specific slot |
-| `POST` | `/api/send-outreach` | Dispatches outreach, logs to `booking_log.csv`, updates slot |
+| Method | Endpoint | Description | Status Codes |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/` | Serves the interactive operations dashboard UI | `200` |
+| `GET` | `/api/health` | Returns backend telemetry, CSV row counts, and uptime | `200` |
+| `GET` | `/api/slots` | Query slots with filters (`?status=vacant&sport=Football`) | `200`, `500` |
+| `GET` | `/api/slots/:id` | Route param: fetches slot details & calculates dynamic offer | `200`, `404` |
+| `GET` | `/api/analytics` | Returns arena occupancy rates, rescued revenue, and yields | `200` |
+| `POST` | `/api/broadcast` | Dispatches WhatsApp alert, logs to CSV, marks slot booked | `201`, `400` |
+| `GET` | `/api/logs` | Returns recent dispatch records from `booking_log.csv` | `200` |
 
 ### Sample Slot Analysis Request:
 ```bash
-curl -X POST http://127.0.0.1:8000/api/analyze-slot \
-  -H "Content-Type: application/json" \
-  -d '{"slot_id": "S1016"}'
+curl -X GET http://localhost:3000/api/slots/S1016
 ```
 
 ### Sample Slot Analysis Response:
@@ -169,73 +219,56 @@ curl -X POST http://127.0.0.1:8000/api/analyze-slot \
     "turf_name": "Apex Arena",
     "sport": "Football",
     "time_slot": "20:00-21:00",
-    "base_price": 1600.0,
-    "historical_fill_rate": 0.88
+    "base_price": 1600,
+    "cost_to_operate": 450,
+    "historical_fill_rate": 0.76,
+    "status": "vacant"
   },
-  "decision": {
+  "analysis": {
     "decision": "notify_small_discount",
-    "discount_pct": 15.0,
-    "confidence": "high",
-    "reasoning": [
-      "Prime peak slot suddenly vacant under 3h lead time.",
-      "15% flash promo protects 40% gross margin above $600 operating floor."
-    ]
-  },
-  "outreach": {
-    "segment_name": "Weekend Warriors FC",
-    "channel": "whatsapp",
-    "message": "Hey Liam! A prime 20:00 slot just opened on Pitch 1 tonight. Lock it in with your team at 15% OFF ($1360/hr): turfpulse.ai/book/s1016"
+    "discount_pct": 15,
+    "discounted_price": 1360,
+    "matched_segment": "Weekend Football Players",
+    "captains_count": 90,
+    "message": "⚽ Turf Alert: Apex Arena 20:00-21:00 tonight has opened up! 15% off at $1,360/hr. Reply to book or tap: turfpulse.ai/book/s1016"
   }
+}
+```
+
+### Sample Broadcast Dispatch Request:
+```bash
+curl -X POST http://localhost:3000/api/broadcast \
+  -H "Content-Type: application/json" \
+  -d '{
+    "slot_id": "S1016",
+    "discount_pct": 15,
+    "segment": "Weekend Football Players",
+    "channel": "whatsapp"
+  }'
+```
+
+### Sample Broadcast Dispatch Response:
+```json
+{
+  "success": true,
+  "message": "Broadcast successfully sent via WHATSAPP to Weekend Football Players!",
+  "logged": {
+    "slot_id": "S1016",
+    "decision": "notify_discount",
+    "discount_pct": 15,
+    "segment_notified": "Weekend Football Players",
+    "source": "express_whatsapp",
+    "timestamp": "2026-09-30T18:14:00.000Z"
+  },
+  "slot_status": "booked"
 }
 ```
 
 ---
 
-## ☁️ Deployment Guide
+## 🧪 Testing & Data Verification
 
-### 🌐 Live Public Link
-- **Live Web Dashboard (Instant Access)**: [https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com](https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com)
-- **API Health Telemetry Endpoint**: [https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com/api/health](https://9a4d98a1fbb20773-59-182-157-172.serveousercontent.com/api/health)
-
-### Deploy on Render (Recommended)
-
-1. Fork or push to your GitHub repo (`Barbarian-king123/Turfvacancy`).
-2. Log into [Render Dashboard](https://dashboard.render.com).
-3. Click **New +** $\rightarrow$ **Web Service**.
-4. Connect the `Turfvacancy` repository.
-5. Render detects the `render.yaml` blueprint automatically:
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn server:app --host 0.0.0.0 --port $PORT`
-6. Under Environment Variables, add `GROQ_API_KEY`.
-7. Click **Deploy Web Service**.
-
-### Deploy on Railway
-
-1. Log into [Railway.app](https://railway.app).
-2. Click **New Project** $\rightarrow$ **Deploy from GitHub repo**.
-3. Select `Barbarian-king123/Turfvacancy`.
-4. Railway detects the `Procfile` and builds the service automatically.
-5. Add `GROQ_API_KEY` in the project settings.
-
-### Deploy on Streamlit Community Cloud
-
-1. Go to [share.streamlit.io](https://share.streamlit.io).
-2. Select your repository `Barbarian-king123/Turfvacancy`, branch `main`, and main file path `app.py`.
-3. In Advanced Settings, enter your secrets (`GROQ_API_KEY`).
-4. Click **Deploy!**.
-
-### Deploy with Docker
-
-```bash
-docker build -t turfpulse-ai .
-docker run -p 8000:8000 -e GROQ_API_KEY="your_api_key" turfpulse-ai
-```
-
----
-
-## 🧪 Verification & Testing
-
-Run the automated data layer test harness:
+Run the automated data validation test harness:
 ```bash
 python data_layer/validate_and_test.py
 ```
